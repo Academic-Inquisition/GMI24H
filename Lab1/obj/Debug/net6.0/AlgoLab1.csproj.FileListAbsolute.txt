@@ -1,0 +1,15 @@
+C:\Users\simon\source\repos\AlgoLab1\AlgoLab1\bin\Debug\net6.0\AlgoLab1.exe
+C:\Users\simon\source\repos\AlgoLab1\AlgoLab1\bin\Debug\net6.0\AlgoLab1.deps.json
+C:\Users\simon\source\repos\AlgoLab1\AlgoLab1\bin\Debug\net6.0\AlgoLab1.runtimeconfig.json
+C:\Users\simon\source\repos\AlgoLab1\AlgoLab1\bin\Debug\net6.0\AlgoLab1.dll
+C:\Users\simon\source\repos\AlgoLab1\AlgoLab1\bin\Debug\net6.0\AlgoLab1.pdb
+C:\Users\simon\source\repos\AlgoLab1\AlgoLab1\obj\Debug\net6.0\AlgoLab1.csproj.AssemblyReference.cache
+C:\Users\simon\source\repos\AlgoLab1\AlgoLab1\obj\Debug\net6.0\AlgoLab1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\simon\source\repos\AlgoLab1\AlgoLab1\obj\Debug\net6.0\AlgoLab1.AssemblyInfoInputs.cache
+C:\Users\simon\source\repos\AlgoLab1\AlgoLab1\obj\Debug\net6.0\AlgoLab1.AssemblyInfo.cs
+C:\Users\simon\source\repos\AlgoLab1\AlgoLab1\obj\Debug\net6.0\AlgoLab1.csproj.CoreCompileInputs.cache
+C:\Users\simon\source\repos\AlgoLab1\AlgoLab1\obj\Debug\net6.0\AlgoLab1.dll
+C:\Users\simon\source\repos\AlgoLab1\AlgoLab1\obj\Debug\net6.0\refint\AlgoLab1.dll
+C:\Users\simon\source\repos\AlgoLab1\AlgoLab1\obj\Debug\net6.0\AlgoLab1.pdb
+C:\Users\simon\source\repos\AlgoLab1\AlgoLab1\obj\Debug\net6.0\AlgoLab1.genruntimeconfig.cache
+C:\Users\simon\source\repos\AlgoLab1\AlgoLab1\obj\Debug\net6.0\ref\AlgoLab1.dll
