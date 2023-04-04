@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\simon\\source\\repos\\AlgoLab1\\AlgoLab1\\AlgoLab1.csproj",
-      "projectName": "AlgoLab1",
-      "projectPath": "C:\\Users\\simon\\source\\repos\\AlgoLab1\\AlgoLab1\\AlgoLab1.csproj",
+      "projectUniqueName": "F:\\ModProjects\\GMI24H\\Lab1\\LinkedList.csproj",
+      "projectName": "LinkedList",
+      "projectPath": "F:\\ModProjects\\GMI24H\\Lab1\\LinkedList.csproj",
       "packagesPath": "C:\\Users\\simon\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\simon\\source\\repos\\AlgoLab1\\AlgoLab1\\obj\\",
+      "outputPath": "F:\\ModProjects\\GMI24H\\Lab1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

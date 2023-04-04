@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "F:\\ModProjects\\GMI24H\\Lab1\\AlgoLab1.csproj": {}
+    "F:\\ModProjects\\GMI24H\\Lab1\\LinkedList.csproj": {}
   },
   "projects": {
-    "F:\\ModProjects\\GMI24H\\Lab1\\AlgoLab1.csproj": {
+    "F:\\ModProjects\\GMI24H\\Lab1\\LinkedList.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\ModProjects\\GMI24H\\Lab1\\AlgoLab1.csproj",
-        "projectName": "AlgoLab1",
-        "projectPath": "F:\\ModProjects\\GMI24H\\Lab1\\AlgoLab1.csproj",
+        "projectUniqueName": "F:\\ModProjects\\GMI24H\\Lab1\\LinkedList.csproj",
+        "projectName": "LinkedList",
+        "projectPath": "F:\\ModProjects\\GMI24H\\Lab1\\LinkedList.csproj",
         "packagesPath": "C:\\Users\\simon\\.nuget\\packages\\",
         "outputPath": "F:\\ModProjects\\GMI24H\\Lab1\\obj\\",
         "projectStyle": "PackageReference",

@@ -1,0 +1,15 @@
+F:\ModProjects\GMI24H\Lab1\bin\Debug\net6.0\LinkedList.exe
+F:\ModProjects\GMI24H\Lab1\bin\Debug\net6.0\LinkedList.deps.json
+F:\ModProjects\GMI24H\Lab1\bin\Debug\net6.0\LinkedList.runtimeconfig.json
+F:\ModProjects\GMI24H\Lab1\bin\Debug\net6.0\LinkedList.dll
+F:\ModProjects\GMI24H\Lab1\bin\Debug\net6.0\LinkedList.pdb
+F:\ModProjects\GMI24H\Lab1\obj\Debug\net6.0\LinkedList.csproj.AssemblyReference.cache
+F:\ModProjects\GMI24H\Lab1\obj\Debug\net6.0\LinkedList.GeneratedMSBuildEditorConfig.editorconfig
+F:\ModProjects\GMI24H\Lab1\obj\Debug\net6.0\LinkedList.AssemblyInfoInputs.cache
+F:\ModProjects\GMI24H\Lab1\obj\Debug\net6.0\LinkedList.AssemblyInfo.cs
+F:\ModProjects\GMI24H\Lab1\obj\Debug\net6.0\LinkedList.csproj.CoreCompileInputs.cache
+F:\ModProjects\GMI24H\Lab1\obj\Debug\net6.0\LinkedList.dll
+F:\ModProjects\GMI24H\Lab1\obj\Debug\net6.0\refint\LinkedList.dll
+F:\ModProjects\GMI24H\Lab1\obj\Debug\net6.0\LinkedList.pdb
+F:\ModProjects\GMI24H\Lab1\obj\Debug\net6.0\LinkedList.genruntimeconfig.cache
+F:\ModProjects\GMI24H\Lab1\obj\Debug\net6.0\ref\LinkedList.dll
