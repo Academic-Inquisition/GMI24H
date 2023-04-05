@@ -16,13 +16,13 @@ namespace AlgoLab1
             head = null;
         }
 
-        public void Add(T item)
+        public void Add(T data)
         {
             if (MainClass.IsDebug)
             {
                 //Console.WriteLine("Lägger till en Person!");
                 int i = 1;
-                if (head == null) Console.WriteLine($"index {i} -> {item}");
+                if (head == null) Console.WriteLine($"index {i} -> {data}");
                 else
                 {
                     Node<T> node = head;
@@ -31,10 +31,10 @@ namespace AlgoLab1
                         node = node.Next;
                         i++;
                     }
-                    Console.WriteLine($"index {i} -> {item}");
+                    Console.WriteLine($"index {i} -> {data}");
                 }
             }
-            Node<T> new_node = new(item);
+            Node<T> new_node = new(data);
             if (head == null)
             {
                 head = new_node;
@@ -47,7 +47,56 @@ namespace AlgoLab1
         // TODO: Finish implementing this
         public void Add(T data, int index)
         {
-            throw new NotImplementedException();
+            if (MainClass.IsDebug)
+            {
+                Console.WriteLine("Lägger till en Person!");
+                int i = 1;
+                if (head == null)
+                {
+                    Console.WriteLine($"index {i} -> {data}");
+                }
+                else
+                {
+                    Node<T> node = head;
+
+                    while (node.Next != null)
+                    {
+                        node = node.Next;
+                        i++;
+                    }
+
+                    Console.WriteLine($"index {i} -> {data}");
+                }
+            }
+
+            Node<T> new_node = new(data);
+
+            if (head == null)
+            {
+                head = new_node;
+                return;
+            }
+            else if (index == Length() + 1)
+            {
+                Node<T> lastNode = GetLastNode();
+                lastNode.Next = new_node;
+                return;
+            }
+
+            Node<T> curr = head;
+
+            for (int i = 1; i <= index; i++)
+            {
+                if (i == index - 1)
+                {
+                    new_node.Next = curr.Next;
+                    curr.Next = new_node;
+                    break;
+                }
+
+                curr = curr.Next;
+            }
+            
         }
 
         // TODO: Finish implementing this

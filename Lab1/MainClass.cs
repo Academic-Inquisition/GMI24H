@@ -13,6 +13,7 @@
             p.Add(new Person("Sören", 101, "Snickare"));
             p.Add(new Person("Maria", 102, "Maskinist"));
             p.Add(new Person("Roger", 103, "Universitetadjunkt - Informatik"));
+            p.Add(new Person("Johan", 104, "Professor - Mikrodataanalys"), 2);
 
             Console.WriteLine("");
             Console.WriteLine($"isEmpty? - {p.IsEmpty()}");
@@ -40,7 +41,7 @@
              */
 
             Console.WriteLine("");
-            Console.WriteLine($"Person på index 2 är: {p.GetValueAtIndex(2)}");
+            Console.WriteLine($"Person på index 2 är: {p.GetValueAtIndex(4)}");
             Console.WriteLine("");
 
             p.Clear();
@@ -51,12 +52,13 @@
             Console.WriteLine("Provar att söka ut Person på index 10");
             try
             {
-                p.GetValueAtIndex(10);
+                //p.GetValueAtIndex(10);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
+            Console.ReadLine();
         }
     }
 }
