@@ -26,6 +26,13 @@ namespace Lab2
         public bool Add(K key, V value)
         {
             throw new NotImplementedException();
+            // Check load factor and resize if necessary
+
+            // Calculate index using hash function
+
+            // If index is empty, add value, otherwise create chaining
+
+            // Increment count
         }
 
         public void Clear()
@@ -50,7 +57,7 @@ namespace Lab2
 
         public bool IsEmpty()
         {
-            throw new NotImplementedException();
+            return _count == 0;
         }
 
         public bool Remove(K key)
@@ -60,7 +67,7 @@ namespace Lab2
 
         public int Size()
         {
-            throw new NotImplementedException();
+            return _count;
         }
     }
 }
