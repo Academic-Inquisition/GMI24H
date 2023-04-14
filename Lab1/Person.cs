@@ -8,6 +8,7 @@ namespace AlgoLab1
 {
     internal class Person
     {
+        // the characteristics of a person with an approperiate datatype
         public string Name { get; set; }
         public int Id { get; set; }
         public string Occupation { get; set; }
