@@ -2,7 +2,6 @@
 {
     internal class MainClass
     {
-        public const bool IsDebug = true;
         static void Main(string[] args)
         {
             ListReferencedBased<Person> p = new ListReferencedBased<Person>();
