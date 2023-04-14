@@ -155,29 +155,13 @@ namespace AlgoLab1
         
         public bool IsEmpty()
         {
-            return Length() == 0;
+            return _count == 0;
         }
 
         
         public int Length()
         {
             return _count;
-        }
-
-        public override String ToString()
-        {
-            Node<T>? temp = head;
-            StringBuilder builder = new();
-            if (temp != null)
-            {
-                builder.AppendLine(temp.Data.ToString());
-                while (temp.Next != null)
-                {
-                    builder.AppendLine(temp.Next.Data.ToString());
-                    temp = temp.Next;
-                }
-            }
-            return builder.ToString();
         }
 
     }

@@ -17,7 +17,7 @@
             Console.WriteLine($"Listan innehåller nu: {p.Length()} noder\n");
 
             p.Add(new Person("Johan", 104, "Professor - Mikrodataanalys"), 2);
-            Console.WriteLine($"Person på index 2 är: {p.GetValueAtIndex(2)}");
+            Console.WriteLine($"Person på index 2 är: {p.GetValueAtIndex(2)}\n");
             Console.WriteLine($"Listan innehåller nu: {p.Length()} noder\n");
 
             p.Remove(2);
