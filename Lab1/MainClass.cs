@@ -33,8 +33,7 @@
 
             p.Clear();
             Console.WriteLine($"Kontrollerar: isEmpty? - {p.IsEmpty()}");
-            Console.WriteLine($"Listan innehåller nu: {p.Length()} noder");
-            Console.WriteLine("");
+            Console.WriteLine($"Listan innehåller nu: {p.Length()} noder\n");
 
             Console.WriteLine("Provar att söka ut Person på index 10");
 
