@@ -8,7 +8,7 @@ namespace AlgoLab1
 {
     public class ListReferencedBased<T> : ListInterface<T>
     {
-
+        private int _count = 0;
         private Node<T>? head;
 
         public ListReferencedBased()
@@ -32,12 +32,14 @@ namespace AlgoLab1
             if (head == null)
             {
                 head = new_node;
+                _count++;
                 return;
             }
 
             Node<T> lastNode = GetLastNode();
 
             lastNode.Next = new_node;
+            _count++;
         }
 
         public void Add(T data, int index)
@@ -56,12 +58,14 @@ namespace AlgoLab1
             if (head == null)
             {
                 head = new_node;
+                _count++;
                 return;
             }
             else if (index == Length() + 1)
             {
                 Node<T> lastNode = GetLastNode();
                 lastNode.Next = new_node;
+                _count++;
                 return;
             }
 
@@ -73,12 +77,12 @@ namespace AlgoLab1
                 {
                     new_node.Next = curr.Next;
                     curr.Next = new_node;
+                    _count++;
                     break;
                 }
 
                 curr = curr.Next;
             }
-            
         }
 
         
@@ -97,6 +101,7 @@ namespace AlgoLab1
                 {
                     Node<T>? temp = curr.Next;
                     curr.Next = temp.Next;
+                    _count--;
                     break;
                 }
 
@@ -107,6 +112,7 @@ namespace AlgoLab1
         public void Clear()
         {
             head = null;
+            _count = 0;
             Console.WriteLine("Listan har tömts");
         }
 
@@ -152,21 +158,10 @@ namespace AlgoLab1
             return Length() == 0;
         }
 
-        // TODO: Finish implementing/looking over this
+        
         public int Length()
         {
-            int length = 0; 
-            Node<T>? node = head;
-            if (node != null)
-            {
-                length++;
-                while (node.Next != null)
-                {
-                    node = node.Next;
-                    length++;
-                }
-            }
-            return length;
+            return _count;
         }
 
         public override String ToString()
