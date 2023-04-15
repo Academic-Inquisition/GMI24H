@@ -9,7 +9,7 @@ namespace Lab2
     internal class KeyValuePair<K, V>
     {
         private K _key { get; }
-        private V _value { get; }
+        private V _value { get; set}
 
         public KeyValuePair(K key, V value) 
         {
@@ -26,5 +26,11 @@ namespace Lab2
         {
             return $"Key: {_key}, Value: {_value}";
         }
+
+        public K GetKey() { return _key; }
+
+        public V GetValue() { return _value; }
+
+        public void SetValue(V value) { _value = value; }
     }
 }

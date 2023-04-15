@@ -26,23 +26,54 @@ namespace Lab2
         public bool Add(K key, V value)
         {
             throw new NotImplementedException();
+
+            // WIP
             // Check load factor and resize if necessary
+            if (_count / _capacity >= _loadFactorThreshold) 
+            { 
+                // Implement resize code
+            }
 
             // Calculate index using hash function
+            int hash = key.GetHashCode() % _capacity;
+            KeyValuePair<K,V> pair = _hashTable[hash];
 
-            // If index is empty, add value, otherwise create chaining
-
-            // Increment count
+            // If index isn't empty
+            if (pair != null) 
+            { 
+                // If the keys match
+                if (pair.GetKey().Equals(key))
+                {
+                    // Set the value of the pair to the new passed in value.
+                    pair.SetValue(value);
+                    return true;
+                }
+                else // If they don't match, then perform conflict resolution
+                {
+                    // Implement strategy to combat conflicts
+                    return false;
+                }
+            }
+            else // If index is empty
+            {
+                // Add Value
+                KeyValuePair<K,V> newPair = new KeyValuePair<K,V>(key, value);
+                _hashTable[hash] = newPair;
+                _isOccupied[hash] = true;
+                // Increment count
+                _count++;
+                return true;
+            }
         }
 
         public void Clear()
         {
             throw new NotImplementedException();
-            // Set the _hashTable to a new array of KVPairs 
-            //      _hashTable = new KeyValuePair<K,V>[_defaultCapacity]
-            //      _isOccupied = new bool[_defaultCapacity]
-            //      _capacity = _defaultCapacity
-            //      _count = 0
+            // WIP
+            _hashTable = new KeyValuePair<K, V>[_defaultCapacity];
+            _isOccupied = new bool[_defaultCapacity];
+            _capacity = _defaultCapacity;
+            _count = 0;
         }
 
         public bool ContainsKey(K key)
@@ -57,7 +88,16 @@ namespace Lab2
 
         public V Get(K key)
         {
-            throw new NotImplementedException();
+            int HashIndex = key.GetHashCode() % _capacity;
+            KeyValuePair<K, V> pair = _hashTable[HashIndex];
+            if (pair != null) 
+            { 
+                if (pair.GetKey().Equals(key))
+                {
+                    return pair.GetValue();
+                }
+            }
+            return default(V);
         }
 
         public bool IsEmpty()
