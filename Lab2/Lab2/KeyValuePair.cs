@@ -16,5 +16,15 @@ namespace Lab2
             _key = key;
             _value = value;
         }
+
+        public void Deconstruct(out K key, out V value)
+        {
+            key = _key; value = _value;
+        }
+
+        public override string ToString()
+        {
+            return $"Key: {_key}, Value: {_value}";
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab2
 {
-    internal interface HashtableInterface<K, V>
+    internal interface HashTableInterface<K, V>
     {
         public bool Add(K key, V value);
         public V Get(K key);

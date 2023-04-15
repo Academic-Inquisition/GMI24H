@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace Lab2
 {
-    internal class HashtableArray<K, V> : HashtableInterface<K, V>
+    internal class HashTableArray<K, V> : HashTableInterface<K, V>
     {
-        private const float LoadFactorThreshhold = 0.7f;
+        private const int _defaultCapacity = 8;
+        private const float _loadFactorThreshold = 0.7f;
 
-        private KeyValuePair<K, V>[] _hashtable;
+        private KeyValuePair<K, V>[] _hashTable;
+        private bool[] _isOccupied;
 
         private int _count = 0;
         private int _capacity = 8;
-        private bool[] _isOccupied;
-
-
-        public HashtableArray() 
+        
+        public HashTableArray() 
         {
-            _hashtable = new KeyValuePair<K, V>[_capacity];
+            _hashTable = new KeyValuePair<K, V>[_capacity];
             _isOccupied = new bool[_capacity];
         }
 
@@ -38,6 +38,11 @@ namespace Lab2
         public void Clear()
         {
             throw new NotImplementedException();
+            // Set the _hashTable to a new array of KVPairs 
+            //      _hashTable = new KeyValuePair<K,V>[_defaultCapacity]
+            //      _isOccupied = new bool[_defaultCapacity]
+            //      _capacity = _defaultCapacity
+            //      _count = 0
         }
 
         public bool ContainsKey(K key)

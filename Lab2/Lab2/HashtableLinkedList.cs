@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab2
 {
-    internal class HashtableLinkedList<K, V> : HashtableInterface<K, V>
+    internal class HashTableLinkedList<K, V> : HashTableInterface<K, V>
     {
         private const float LoadFactorThreshhold = 0.7f;
 
@@ -17,7 +17,7 @@ namespace Lab2
         private bool[] _isOccupied;
 
 
-        public HashtableLinkedList() 
+        public HashTableLinkedList() 
         {
             _hashtable = new KeyValuePair<K, V>[_capacity];
             _isOccupied = new bool[_capacity];
