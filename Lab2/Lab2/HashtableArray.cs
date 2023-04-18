@@ -22,14 +22,12 @@ namespace Lab2
 
         public HashTableArray() 
         {
-            _hashTable = new KeyValuePair<K, V>[_capacity, _capacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
+            _hashTable = new KeyValuePair<K, V>[_bucketCapacity, _capacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
             _isOccupied = new bool[_capacity, _capacity];
         }
 
         public bool Add(K key, V value)
         {
-            throw new NotImplementedException();
-
             // WIP
             // Check load factor and resize if necessary
             if (_count / _capacity >= _loadFactorThreshold) 
@@ -51,7 +49,7 @@ namespace Lab2
                 {
                     K indexKey = pair.GetKey();
 
-                    if (indexKey.Equals(key))  // If the keys match
+                    if (indexKey != null && indexKey.Equals(key))  // If the keys match
                     {
                         // Set the value of the pair to the new passed in value.
                         pair.SetValue(value);
@@ -77,15 +75,14 @@ namespace Lab2
         {
             throw new NotImplementedException();
             // WIP
-            _hashTable = new KeyValuePair<K, V>[_defaultCapacity, _defaultCapacity];
-            _isOccupied = new bool[_defaultCapacity, _defaultCapacity];
+            _hashTable = new KeyValuePair<K, V>[_bucketCapacity, _defaultCapacity];
+            _isOccupied = new bool[_bucketCapacity, _defaultCapacity];
             _capacity = _defaultCapacity;
             _count = 0;
         }
 
         public bool ContainsKey(K key)
         {
-            throw new NotImplementedException();
             int HashIndex;
 
             if (key != null)
@@ -100,12 +97,11 @@ namespace Lab2
             for (int i = 0; i < _bucketCapacity; i++) 
             {
                 KeyValuePair<K, V> pair = _hashTable[i, HashIndex];  // Reminder: [row, column]
-                K indexKey;
+                K? indexKey = default;
 
                 if (pair != null) indexKey = pair.GetKey();
-
-                if (indexKey.Equals(key)) return true;
-
+                
+                if (indexKey != null && indexKey.Equals(key)) return true;
             }
 
             return false;
@@ -114,17 +110,16 @@ namespace Lab2
         public bool ContainsValue(V value)
         {
             // Det går säkert att göra den här funktionen mer effektiv
-            throw new NotImplementedException();
             for (int i = 0; i < Size(); i++)
             {
                 for (int j = 0; j < _bucketCapacity; j++) 
                 {
                     KeyValuePair<K, V> pair = _hashTable[j, i];   // Reminder: [row, column]
-                    V indexValue;
+                    V? indexValue = default;
 
                     if (pair != null) indexValue = Get(pair.GetKey());
 
-                    if (indexValue.Equals(value)) return true;
+                    if (indexValue != null && indexValue.Equals(value)) return true;
 
                 }
                
@@ -167,7 +162,6 @@ namespace Lab2
 
         public bool Remove(K key)
         {
-            throw new NotImplementedException();
             int HashIndex;
 
             if (key != null)
