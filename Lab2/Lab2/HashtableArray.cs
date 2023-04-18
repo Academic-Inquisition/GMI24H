@@ -38,6 +38,8 @@ namespace Lab2
                 Resize(_capacity * 2);
             }
 
+            // Add function to check bucket load factor (just in case)
+
             // Calculate index using hash function
             int HashIndex = key.GetHashCode() % _capacity;
 
