@@ -98,8 +98,10 @@ namespace Lab2
                     // Lägg till kod för att kolla chaining
                 }
 
-                return false;
+                
             }
+
+            return false;
         }
 
         public bool ContainsValue(V value)
@@ -121,8 +123,10 @@ namespace Lab2
                     // Lägg till kod för att kolla chaining
                 }
 
-                return false;
+                
             }
+
+            return false;
         }
 
         public V? Get(K key)
