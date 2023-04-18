@@ -15,8 +15,9 @@ namespace Lab2
         private bool[] _isOccupied;
 
         private int _count = 0;
-        private int _capacity = 8;
+        private int _capacity = _defaultCapacity;
         
+
         public HashTableArray() 
         {
             _hashTable = new KeyValuePair<K, V>[_capacity];
@@ -30,8 +31,9 @@ namespace Lab2
             // WIP
             // Check load factor and resize if necessary
             if (_count / _capacity >= _loadFactorThreshold) 
-            { 
-                // Implement resize code
+            {
+                // (If necessary) Determine new size if it can be less than double the previous size
+                Resize(_capacity * 2);
             }
 
             // Calculate index using hash function
@@ -40,9 +42,10 @@ namespace Lab2
 
             // If index isn't empty
             if (pair != null) 
-            { 
-                // If the keys match
-                if (pair.GetKey().Equals(key))
+            {
+                K indexKey = pair.GetKey();
+                
+                if (indexKey.Equals(key))  // If the keys match
                 {
                     // Set the value of the pair to the new passed in value.
                     pair.SetValue(value);
@@ -79,25 +82,71 @@ namespace Lab2
         public bool ContainsKey(K key)
         {
             throw new NotImplementedException();
+            for (int i = 0; i <= Size(); i++)
+            {
+                KeyValuePair<K, V> pair = _hashTable[i];
+                K indexKey = default;
+
+                if (pair != null) indexKey = pair.GetKey();
+                
+                if (indexKey.Equals(key))
+                {
+                    return true;
+                }
+                else
+                {
+                    // Lägg till kod för att kolla chaining
+                }
+
+                return false;
+            }
         }
 
         public bool ContainsValue(V value)
         {
             throw new NotImplementedException();
+            for (int i = 0; i <= Size(); i++)
+            {
+                KeyValuePair<K, V> pair = _hashTable[i];
+                V indexValue = default;
+
+                if (pair != null) indexValue = Get(pair.GetKey());
+               
+                if (indexValue.Equals(value))
+                {
+                    return true;
+                }
+                else
+                {
+                    // Lägg till kod för att kolla chaining
+                }
+
+                return false;
+            }
         }
 
-        public V Get(K key)
+        public V? Get(K key)
         {
-            int HashIndex = key.GetHashCode() % _capacity;
-            KeyValuePair<K, V> pair = _hashTable[HashIndex];
-            if (pair != null) 
-            { 
-                if (pair.GetKey().Equals(key))
-                {
-                    return pair.GetValue();
-                }
+            int HashIndex = -1;
+
+            if (key != null)
+            {
+                HashIndex = key.GetHashCode() % _capacity;
             }
-            return default(V);
+            else
+            {
+                // Throw some kind of null key error
+            }
+            
+            KeyValuePair<K, V> pair = _hashTable[HashIndex];
+
+            if (pair != null) 
+            {
+                K indexKey = pair.GetKey();
+                if (indexKey != null && indexKey.Equals(key)) return pair.GetValue();
+            }
+
+            return default;
         }
 
         public bool IsEmpty()
@@ -113,6 +162,11 @@ namespace Lab2
         public int Size()
         {
             return _count;
+        }
+
+        public void Resize(int newCapacity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

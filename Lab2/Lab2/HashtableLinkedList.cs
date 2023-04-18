@@ -43,7 +43,7 @@ namespace Lab2
             throw new NotImplementedException();
         }
 
-        public V Get(K key)
+        public V? Get(K key)
         {
             throw new NotImplementedException();
         }
@@ -59,6 +59,11 @@ namespace Lab2
         }
 
         public int Size()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Resize(int newCapacity)
         {
             throw new NotImplementedException();
         }
