@@ -102,7 +102,7 @@ namespace Lab2
 
             for (int i = 0; i < _bucketCapacity; i++) 
             {
-                KeyValuePair<K, V> pair = _hashTable[i, HashIndex];
+                KeyValuePair<K, V> pair = _hashTable[i, HashIndex];  // Reminder: [row, column]
                 K indexKey = default;
 
                 if (pair != null) indexKey = pair.GetKey();
@@ -122,7 +122,7 @@ namespace Lab2
             {
                 for (int j = 0; j < _bucketCapacity; j++) 
                 {
-                    KeyValuePair<K, V> pair = _hashTable[j, i];
+                    KeyValuePair<K, V> pair = _hashTable[j, i];   // Reminder: [row, column]
                     V indexValue = default;
 
                     if (pair != null) indexValue = Get(pair.GetKey());
@@ -151,7 +151,7 @@ namespace Lab2
             
             for (int i = 0; i < _bucketCapacity; i++)
             {
-                KeyValuePair<K, V> pair = _hashTable[i, HashIndex];
+                KeyValuePair<K, V> pair = _hashTable[i, HashIndex];   // Reminder: [row, column]
 
                 if (pair != null)
                 {
@@ -184,7 +184,7 @@ namespace Lab2
 
             for (int i = 0; i < _bucketCapacity; i++)
             {
-                KeyValuePair<K, V> pair = _hashTable[i, HashIndex];
+                KeyValuePair<K, V> pair = _hashTable[i, HashIndex];   // Reminder: [row, column]
 
                 if (pair != null)
                 {
