@@ -55,12 +55,6 @@ namespace Lab2
                         pair.SetValue(value);
                         return true;
                     }
-                    else // If they don't match, then perform conflict resolution
-                    {
-
-                        // Implement strategy to combat conflicts
-                        return false;
-                    }
                 }
                 else // If index is empty
                 {
@@ -74,6 +68,7 @@ namespace Lab2
                 }
             }
             
+            return false;
         }
 
         public void Clear()
