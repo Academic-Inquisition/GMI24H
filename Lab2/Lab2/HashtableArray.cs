@@ -182,9 +182,14 @@ namespace Lab2
                     K indexKey = pair.GetKey();
                     if (indexKey != null && indexKey.Equals(key))
                     {
-                        _hashTable[i, HashIndex] = null;
+                        K? defaultKey = default;
+                        V? defaultValue = default;
+
+                        KeyValuePair<K, V> defaultPair = new KeyValuePair<K, V>(defaultKey, defaultValue);
+                        _hashTable[i, HashIndex] = defaultPair;
                         _isOccupied[i, HashIndex] = false;
                         _count--;
+
                         return true;
                     }
                 }

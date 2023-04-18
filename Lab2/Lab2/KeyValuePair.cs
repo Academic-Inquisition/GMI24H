@@ -8,8 +8,8 @@ namespace Lab2
 {
     internal class KeyValuePair<K, V>
     {
-        private K _key { get; }
-        private V _value { get; set; }
+        private K? _key { get; }
+        private V? _value { get; set; }
 
         public KeyValuePair(K key, V value) 
         {
@@ -17,7 +17,7 @@ namespace Lab2
             _value = value;
         }
 
-        public void Deconstruct(out K key, out V value)
+        public void Deconstruct(out K? key, out V? value)
         {
             key = _key; value = _value;
         }
@@ -27,9 +27,9 @@ namespace Lab2
             return $"Key: {_key}, Value: {_value}";
         }
 
-        public K GetKey() { return _key; }
+        public K? GetKey() { return _key; }
 
-        public V GetValue() { return _value; }
+        public V? GetValue() { return _value; }
 
         public void SetValue(V value) { _value = value; }
     }
