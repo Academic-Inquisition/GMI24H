@@ -10,11 +10,13 @@ namespace Lab2
     internal class HashTableArray<K, V> : HashTableInterface<K, V>
     {
         private const int _defaultCapacity = 8;
+        private const int _defaultBucketCapacity = _defaultCapacity / 2;
         private const float _loadFactorThreshold = 0.7f;
 
-        private int _count = 0;
+        private int _count;
+        private int[] _bucketCount;
         private int _capacity = _defaultCapacity;
-        private int _bucketCapacity = _defaultCapacity / 2;
+        private int _bucketCapacity = _defaultBucketCapacity;
 
         private KeyValuePair<K, V>[,] _hashTable; 
         private bool[,] _isOccupied;
@@ -23,7 +25,9 @@ namespace Lab2
         public HashTableArray() 
         {
             _hashTable = new KeyValuePair<K, V>[_bucketCapacity, _capacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
-            _isOccupied = new bool[_capacity, _capacity];
+            _isOccupied = new bool[_bucketCapacity, _capacity];
+            _count = 0;
+            _bucketCount = new int[_capacity];
         }
 
         public bool Add(K key, V value)
@@ -34,6 +38,14 @@ namespace Lab2
             {
                 // (If necessary) Determine new size if it can be less than double the previous size
                 Resize(_capacity * 2);
+            }
+
+            for (int i = 0; i < _capacity; i++)
+            {
+                if (_bucketCount[i] / _bucketCapacity >= _loadFactorThreshold)
+                {
+                    Resize(_capacity * 2);
+                }
             }
 
             // Add function to check bucket load factor (just in case)
@@ -63,7 +75,16 @@ namespace Lab2
                     _hashTable[i, HashIndex] = newPair;
                     _isOccupied[i, HashIndex] = true;
                     // Increment count
-                    _count++;
+                    if (i == 0)
+                    {
+                        _count++;
+                        _bucketCount[i]++;
+                    }
+                    else
+                    {
+                        _bucketCount[i]++;
+                    }
+
                     return true;
                 }
             }
@@ -73,8 +94,7 @@ namespace Lab2
 
         public void Clear()
         {
-            throw new NotImplementedException();
-            // WIP
+            _bucketCapacity = _defaultBucketCapacity;
             _hashTable = new KeyValuePair<K, V>[_bucketCapacity, _defaultCapacity];
             _isOccupied = new bool[_bucketCapacity, _defaultCapacity];
             _capacity = _defaultCapacity;
@@ -115,11 +135,13 @@ namespace Lab2
                 for (int j = 0; j < _bucketCapacity; j++) 
                 {
                     KeyValuePair<K, V> pair = _hashTable[j, i];   // Reminder: [row, column]
-                    V? indexValue = default;
+                    V? indexValue;
 
-                    if (pair != null) indexValue = Get(pair.GetKey());
-
-                    if (indexValue != null && indexValue.Equals(value)) return true;
+                    if (pair != null)
+                    {
+                        indexValue = Get(pair.GetKey());
+                        if (indexValue != null && indexValue.Equals(value)) return true;
+                    }
 
                 }
                
@@ -162,16 +184,9 @@ namespace Lab2
 
         public bool Remove(K key)
         {
-            int HashIndex;
+            int HashIndex = key.GetHashCode() % _capacity;
 
-            if (key != null)
-            {
-                HashIndex = key.GetHashCode() % _capacity;
-            }
-            else
-            {
-                throw new NullKeyException();
-            }
+            if (_bucketCount[HashIndex] == 0) return false;
 
             for (int i = 0; i < _bucketCapacity; i++)
             {
@@ -188,7 +203,16 @@ namespace Lab2
                         KeyValuePair<K, V> defaultPair = new KeyValuePair<K, V>(defaultKey, defaultValue);
                         _hashTable[i, HashIndex] = defaultPair;
                         _isOccupied[i, HashIndex] = false;
-                        _count--;
+
+                        if (i == 0)
+                        {
+                            _count--;
+                            _bucketCount[i]--;
+                        }
+                        else
+                        {
+                            _bucketCount[i]--;
+                        }
 
                         return true;
                     }
@@ -205,7 +229,17 @@ namespace Lab2
 
         public void Resize(int newCapacity)
         {
-            throw new NotImplementedException();
+            KeyValuePair<K, V>[,] temp = new KeyValuePair<K, V>[newCapacity / 2, newCapacity];
+
+            for (int i = 0; i < _capacity; i++)
+            {
+                for (int j = 0; j < _bucketCapacity; j++)
+                {
+                    temp[j, i] = _hashTable[j, i];
+                }
+            }
+
+            _hashTable = temp;
         }
     }
 }
