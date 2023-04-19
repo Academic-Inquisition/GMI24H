@@ -80,11 +80,11 @@ namespace Lab2
                     if (i == 0)
                     {
                         _count++;
-                        _bucketCount[i]++;
+                        _bucketCount[HashIndex]++;
                     }
                     else
                     {
-                        _bucketCount[i]++;
+                        _bucketCount[HashIndex]++;
                     }
 
                     return true;
@@ -192,7 +192,7 @@ namespace Lab2
 
             for (int i = 0; i < _bucketCapacity; i++)
             {
-                KeyValuePair<K, V> pair = _hashTable[HashIndex, i];   // Reminder: [row, column]
+                KeyValuePair<K, V> pair = _hashTable[i, HashIndex];   // Reminder: [row, column]
 
                 if (pair != null)
                 {
@@ -203,18 +203,18 @@ namespace Lab2
                         V? defaultValue = default;
 
                         KeyValuePair<K, V> defaultPair = new KeyValuePair<K, V>(defaultKey, defaultValue);
-                        _hashTable[HashIndex, i] = defaultPair;
-                        _isOccupied[HashIndex, i] = false;
+                        _hashTable[i, HashIndex] = defaultPair;
+                        _isOccupied[i, HashIndex] = false;
 
                         _totalCount--;
                         if (i == 0)
                         {
                             _count--;
-                            _bucketCount[i]--;
+                            _bucketCount[HashIndex]--;
                         }
                         else
                         {
-                            _bucketCount[i]--;
+                            _bucketCount[HashIndex]--;
                         }
 
                         return true;
