@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace Lab2
 {
-    internal class HashTableArray<K, V> : HashTableInterface<K, V>
+    public class HashTableArray<K, V> : HashTableInterface<K, V>
     {
         private const int _defaultCapacity = 8;
         private const int _defaultBucketCapacity = _defaultCapacity / 2;
         private const float _loadFactorThreshold = 0.7f;
 
+        private int _totalCount;
         private int _count;
         private int[] _bucketCount;
         private int _capacity = _defaultCapacity;
@@ -51,7 +52,7 @@ namespace Lab2
             // Add function to check bucket load factor (just in case)
 
             // Calculate index using hash function
-            int HashIndex = key.GetHashCode() % _capacity;
+            int HashIndex = Math.Abs(Program.HashFunction(key.ToString(), _capacity));
 
             for (int i = 0; i < _bucketCapacity; i++) 
             {
@@ -75,6 +76,7 @@ namespace Lab2
                     _hashTable[i, HashIndex] = newPair;
                     _isOccupied[i, HashIndex] = true;
                     // Increment count
+                    _totalCount++;
                     if (i == 0)
                     {
                         _count++;
@@ -107,7 +109,7 @@ namespace Lab2
 
             if (key != null)
             {
-                HashIndex = key.GetHashCode() % _capacity;
+                HashIndex = Math.Abs(Program.HashFunction(key.ToString(), _capacity));
             }
             else
             {
@@ -130,7 +132,7 @@ namespace Lab2
         public bool ContainsValue(V value)
         {
             // Det går säkert att göra den här funktionen mer effektiv
-            for (int i = 0; i < Size(); i++)
+            for (int i = 0; i < _capacity; i++)
             {
                 for (int j = 0; j < _bucketCapacity; j++) 
                 {
@@ -156,7 +158,7 @@ namespace Lab2
 
             if (key != null)
             {
-                HashIndex = key.GetHashCode() % _capacity;
+                HashIndex = Math.Abs(Program.HashFunction(key.ToString(), _capacity));
             }
             else
             {
@@ -184,13 +186,13 @@ namespace Lab2
 
         public bool Remove(K key)
         {
-            int HashIndex = key.GetHashCode() % _capacity;
+            int HashIndex = Math.Abs(Program.HashFunction(key.ToString(), _capacity));
 
             if (_bucketCount[HashIndex] == 0) return false;
 
             for (int i = 0; i < _bucketCapacity; i++)
             {
-                KeyValuePair<K, V> pair = _hashTable[i, HashIndex];   // Reminder: [row, column]
+                KeyValuePair<K, V> pair = _hashTable[HashIndex, i];   // Reminder: [row, column]
 
                 if (pair != null)
                 {
@@ -201,9 +203,10 @@ namespace Lab2
                         V? defaultValue = default;
 
                         KeyValuePair<K, V> defaultPair = new KeyValuePair<K, V>(defaultKey, defaultValue);
-                        _hashTable[i, HashIndex] = defaultPair;
-                        _isOccupied[i, HashIndex] = false;
+                        _hashTable[HashIndex, i] = defaultPair;
+                        _isOccupied[HashIndex, i] = false;
 
+                        _totalCount--;
                         if (i == 0)
                         {
                             _count--;
@@ -222,9 +225,24 @@ namespace Lab2
             return false;
         }
 
-        public int Size()
+        public int TotalCount()
+        {
+            return _totalCount;
+        }
+
+        public int Count()
         {
             return _count;
+        }
+
+        public int BucketCount(int index)
+        {
+            return _bucketCount[index];
+        }
+
+        public int[] Capacity()
+        {
+            return new int[] { _capacity, _bucketCapacity };
         }
 
         public void Resize(int newCapacity)

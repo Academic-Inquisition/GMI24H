@@ -15,7 +15,10 @@ namespace Lab2
         public bool ContainsValue(V value);
         public bool ContainsKey(K key);
         public bool IsEmpty();
-        public int Size();
+        public int TotalCount();
+        public int Count();
+        public int BucketCount(int index);
+        public int[] Capacity();
         public void Resize(int newCapacity);
     }
 }

@@ -33,7 +33,7 @@ namespace Lab2
             if (date.Month <= 6) sID += "v";
             else sID += "h";
             sID += date.Year.ToString().Substring(2);
-            sID += FirstName.ToString().Substring(0, 3) + LastName.ToString().Substring(0, 2);
+            sID += FirstName.ToString().Substring(0, 3).ToLower() + LastName.ToString().Substring(0, 2).ToLower();
 
             return sID;
         }
