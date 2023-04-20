@@ -19,12 +19,8 @@ namespace Lab2
 
             Console.WriteLine();
 
-            
-            Console.WriteLine(HashFunction(tim.StudentID, map.Capacity()[0]));
             Console.WriteLine($"Försöker lägga till Tim, Status: {(map.Add(tim.StudentID, tim) ? "Lyckades" : "Misslyckades")}");
-            Console.WriteLine(HashFunction(simon.StudentID, map.Capacity()[0]));
             Console.WriteLine($"Försöker lägga till Simon, Status: {(map.Add(simon.StudentID, simon) ? "Lyckades" : "Misslyckades")}");
-            Console.WriteLine(HashFunction(markus.StudentID, map.Capacity()[0]));
             Console.WriteLine($"Försöker lägga till Markus, Status: {(map.Add(markus.StudentID, markus) ? "Lyckades" : "Misslyckades")}");
 
             Console.WriteLine();
@@ -50,22 +46,24 @@ namespace Lab2
 
             Console.WriteLine($"Storleken av Kartan: [{map.Capacity()[0]}, {map.Capacity()[1]}]");
             Console.WriteLine($"Kartan innehåller {map.TotalCount()} entries!");
-            Console.WriteLine(HashFunction(tim.StudentID, map.Capacity()[0]));
             Console.WriteLine($"Tar bort 'v23timst': Status: {(map.Remove(tim.StudentID) ? "Lyckades" : "Misslyckades")}");
             Console.WriteLine($"Kartan innehåller {map.TotalCount()} entries!");
-            
-            //Console.WriteLine();
 
-            //Console.WriteLine($"{}");
-            //Console.WriteLine($"{}");
-            //Console.WriteLine($"{}");
 
             //Console.WriteLine();
 
             //Console.WriteLine($"{}");
             //Console.WriteLine($"{}");
             //Console.WriteLine($"{}");
-            
+
+            //Console.WriteLine();
+
+            //Console.WriteLine($"{}");
+            //Console.WriteLine($"{}");
+            //Console.WriteLine($"{}");
+
+            Console.ReadLine();
+
         }
 
         public static int HashFunction(string key, int capacity)
