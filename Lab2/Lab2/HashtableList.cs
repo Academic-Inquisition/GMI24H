@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab2
 {
-    internal class HashTableList<K, V> : HashTableInterface<K, V>
+    public class HashTableList<K, V> : HashTableInterface<K, V>
     {
         private const int _defaultCapacity = 8;
         private const float _loadFactorThreshold = 0.7f;
