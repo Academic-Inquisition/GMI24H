@@ -9,43 +9,33 @@ namespace Lab2
     internal class HashTableLinkedList<K, V> : HashTableInterface<K, V>
     {
         private const int _defaultCapacity = 8;
-        private const int _defaultBucketCapacity = _defaultCapacity / 2;
         private const float _loadFactorThreshold = 0.7f;
 
         private int _totalCount;
         private int _count;
-        private int[] _bucketCount;
         private int _capacity = _defaultCapacity;
-        private int _bucketCapacity = _defaultBucketCapacity;
 
-        private KeyValuePair<K, V>[,] _hashTable; 
-        private bool[,] _isOccupied;
+        private LinkedList<KeyValuePair<K, V>>[] _hashTable;
+        private LinkedList<bool>[] _isOccupied;
 
 
-        public HashTableLinkedList() 
+        public HashTableLinkedList()
         {
-            _hashTable = new KeyValuePair<K, V>[_bucketCapacity, _capacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
-            _isOccupied = new bool[_bucketCapacity, _capacity];
+            _hashTable = new LinkedList<KeyValuePair<K, V>>[_capacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
+            for (int i = 0; i < _capacity; i++) _hashTable[i] = new LinkedList<KeyValuePair<K, V>>();
+            _isOccupied = new LinkedList<bool>[_capacity];
+            for (int i = 0; i < _capacity; i++) _isOccupied[i] = new LinkedList<bool>();
             _count = 0;
-            _bucketCount = new int[_capacity];
         }
-        
+
         public bool Add(K key, V value)
         {
             // WIP
             // Check load factor and resize if necessary
-            if (_count / _capacity >= _loadFactorThreshold) 
+            if (_count / _capacity >= _loadFactorThreshold)
             {
                 // (If necessary) Determine new size if it can be less than double the previous size
                 Resize(_capacity * 2);
-            }
-
-            for (int i = 0; i < _capacity; i++)
-            {
-                if (_bucketCount[i] / _bucketCapacity >= _loadFactorThreshold)
-                {
-                    Resize(_capacity * 2);
-                }
             }
 
             // Add function to check bucket load factor (just in case)
@@ -53,9 +43,25 @@ namespace Lab2
             // Calculate index using hash function
             int HashIndex = Math.Abs(key.GetHashCode() % _capacity);
 
-            for (int i = 0; i < _bucketCapacity; i++) 
+            LinkedList<KeyValuePair<K, V>> bucket = _hashTable[HashIndex];
+
+            // Om det är första värdet som läggs till i denna bucket
+            if (bucket.Count() == 0)
             {
-                KeyValuePair<K, V> pair = _hashTable[i, HashIndex];
+                // Add Value
+                KeyValuePair<K, V> newPair = new KeyValuePair<K, V>(key, value);
+                bucket.AddLast(newPair);
+                _isOccupied[HashIndex].AddLast(true);
+                // Increment count
+                _totalCount++;
+                _count++;
+                return true;
+            }
+
+            // Loopa över och kolla om man ska uppdatera värdet
+            for (int i = 0; i < bucket.Count(); i++)
+            {
+                KeyValuePair<K, V> pair = bucket.ElementAt(i);
 
                 if (pair != null) // If index isn't empty
                 {
@@ -68,38 +74,25 @@ namespace Lab2
                         return true;
                     }
                 }
-                else // If index is empty
-                {
-                    // Add Value
-                    KeyValuePair<K, V> newPair = new KeyValuePair<K, V>(key, value);
-                    _hashTable[i, HashIndex] = newPair;
-                    _isOccupied[i, HashIndex] = true;
-                    // Increment count
-                    _totalCount++;
-                    if (i == 0)
-                    {
-                        _count++;
-                        _bucketCount[i]++;
-                    }
-                    else
-                    {
-                        _bucketCount[i]++;
-                    }
-
-                    return true;
-                }
             }
-            
-            return false;
+
+            KeyValuePair<K, V> np = new KeyValuePair<K, V>(key, value);
+            bucket.AddLast(np);
+            _isOccupied[HashIndex].AddLast(true);
+            // Increment count
+            _totalCount++;
+            _count++;
+            return true;
         }
 
         public void Clear()
         {
-            _bucketCapacity = _defaultBucketCapacity;
-            _hashTable = new KeyValuePair<K, V>[_bucketCapacity, _defaultCapacity];
-            _isOccupied = new bool[_bucketCapacity, _defaultCapacity];
             _capacity = _defaultCapacity;
+            _totalCount = 0;
             _count = 0;
+
+            _hashTable = new LinkedList<KeyValuePair<K, V>>[_capacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
+            _isOccupied = new LinkedList<bool>[_capacity];
         }
 
         public bool ContainsKey(K key)
@@ -115,13 +108,15 @@ namespace Lab2
                 throw new NullKeyException();
             }
 
-            for (int i = 0; i < _bucketCapacity; i++) 
+            LinkedList<KeyValuePair<K, V>> bucket = _hashTable[HashIndex];
+
+            for (int i = 0; i < bucket.Count(); i++)
             {
-                KeyValuePair<K, V> pair = _hashTable[i, HashIndex];  // Reminder: [row, column]
+                KeyValuePair<K, V> pair = bucket.ElementAt(i);  // Reminder: [row, column]
                 K? indexKey = default;
 
                 if (pair != null) indexKey = pair.GetKey();
-                
+
                 if (indexKey != null && indexKey.Equals(key)) return true;
             }
 
@@ -133,9 +128,10 @@ namespace Lab2
             // Det går säkert att göra den här funktionen mer effektiv
             for (int i = 0; i < _capacity; i++)
             {
-                for (int j = 0; j < _bucketCapacity; j++) 
+                LinkedList<KeyValuePair<K, V>> bucket = _hashTable[i];
+                for (int j = 0; j < bucket.Count(); j++)
                 {
-                    KeyValuePair<K, V> pair = _hashTable[j, i];   // Reminder: [row, column]
+                    KeyValuePair<K, V> pair = bucket.ElementAt(i);   // Reminder: [row, column]
                     V? indexValue;
 
                     if (pair != null)
@@ -145,7 +141,7 @@ namespace Lab2
                     }
 
                 }
-               
+
             }
 
             return false;
@@ -163,10 +159,12 @@ namespace Lab2
             {
                 throw new NullKeyException();
             }
-            
-            for (int i = 0; i < _bucketCapacity; i++)
+
+            LinkedList<KeyValuePair<K, V>> bucket = _hashTable[HashIndex];
+
+            for (int i = 0; i < bucket.Count(); i++)
             {
-                KeyValuePair<K, V> pair = _hashTable[i, HashIndex];   // Reminder: [row, column]
+                KeyValuePair<K, V> pair = bucket.ElementAt(i);   // Reminder: [row, column]
 
                 if (pair != null)
                 {
@@ -185,13 +183,24 @@ namespace Lab2
 
         public bool Remove(K key)
         {
-            int HashIndex = Math.Abs(key.GetHashCode() % _capacity);
+            int HashIndex;
 
-            if (_bucketCount[HashIndex] == 0) return false;
-
-            for (int i = 0; i < _bucketCapacity; i++)
+            if (key != null)
             {
-                KeyValuePair<K, V> pair = _hashTable[i, HashIndex];   // Reminder: [row, column]
+                HashIndex = Math.Abs(key.GetHashCode() % _capacity);
+            }
+            else
+            {
+                throw new NullKeyException();
+            }
+
+            LinkedList<KeyValuePair<K, V>> bucket = _hashTable[HashIndex];
+
+            if (bucket.Count() == 0) return false;
+
+            for (int i = 0; i < bucket.Count(); i++)
+            {
+                KeyValuePair<K, V> pair = bucket.ElementAt(i);   // Reminder: [row, column]
 
                 if (pair != null)
                 {
@@ -202,18 +211,14 @@ namespace Lab2
                         V? defaultValue = default;
 
                         KeyValuePair<K, V> defaultPair = new KeyValuePair<K, V>(defaultKey, defaultValue);
-                        _hashTable[i, HashIndex] = defaultPair;
-                        _isOccupied[i, HashIndex] = false;
+                        bucket[i] = defaultPair;
+                        bool temp = _isOccupied[HashIndex].ElementAt(i);
+                        temp = false;
 
                         _totalCount--;
                         if (i == 0)
                         {
                             _count--;
-                            _bucketCount[i]--;
-                        }
-                        else
-                        {
-                            _bucketCount[i]--;
                         }
 
                         return true;
@@ -236,27 +241,34 @@ namespace Lab2
 
         public int BucketCount(int index)
         {
-            return _bucketCount[index];
+            return _hashTable[index].Count();
         }
 
         public int[] Capacity()
         {
-            return new int[] { _capacity, _bucketCapacity };
+            return new int[] { _capacity, -1 };
         }
 
         public void Resize(int newCapacity)
         {
-            KeyValuePair<K, V>[,] temp = new KeyValuePair<K, V>[newCapacity / 2, newCapacity];
+            LinkedList<KeyValuePair<K, V>>[] hashTableTemp = new LinkedList<KeyValuePair<K, V>>[newCapacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
+            for (int i = 0; i < newCapacity; i++) hashTableTemp[i] = new LinkedList<KeyValuePair<K, V>>();
+            LinkedList<bool>[] isOccupiedTemp = new LinkedList<bool>[newCapacity];
+            for (int i = 0; i < newCapacity; i++) isOccupiedTemp[i] = new LinkedList<bool>();
 
             for (int i = 0; i < _capacity; i++)
             {
-                for (int j = 0; j < _bucketCapacity; j++)
+                LinkedList<KeyValuePair<K, V>> bucket = _hashTable[i];
+                for (int j = 0; j < bucket.Count(); j++)
                 {
-                    temp[j, i] = _hashTable[j, i];
+                    hashTableTemp[i] = _hashTable[i];
+                    isOccupiedTemp[i] = _isOccupied[i];
                 }
             }
 
-            _hashTable = temp;
+            _hashTable = hashTableTemp;
+            _isOccupied = isOccupiedTemp;
+            _capacity = newCapacity;
         }
     }
 }

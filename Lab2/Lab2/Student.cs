@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 
 namespace Lab2
 {
-    internal class Student
+    public class Student
     {
         private static int _counter = 0;
 

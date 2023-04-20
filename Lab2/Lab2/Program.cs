@@ -7,7 +7,7 @@ namespace Lab2
     {
         public static void Main(string[] args)
         {
-            HashTableArray<string, Student> map = new HashTableArray<string, Student>();
+            HashTableInterface<string, Student> map = new HashTableList<string, Student>();
 
             Student tim = new Student("Tim", "Stolpe");
             Student simon = new Student("Simon", "Stålnäbb");
@@ -49,32 +49,60 @@ namespace Lab2
             Console.WriteLine($"Tar bort 'v23timst': Status: {(map.Remove(tim.StudentID) ? "Lyckades" : "Misslyckades")}");
             Console.WriteLine($"Kartan innehåller {map.TotalCount()} entries!");
 
+            Console.WriteLine();
 
-            //Console.WriteLine();
-
-            //Console.WriteLine($"{}");
-            //Console.WriteLine($"{}");
-            //Console.WriteLine($"{}");
-
-            //Console.WriteLine();
-
-            //Console.WriteLine($"{}");
-            //Console.WriteLine($"{}");
-            //Console.WriteLine($"{}");
-
-            Console.ReadLine();
-
-        }
-
-        public static int HashFunction(string key, int capacity)
-        {
-            int hash = 5381;
-            foreach (char c in key)
+            Console.WriteLine("Adding 100 Students to test the Resize function!");
+            Console.WriteLine($"Storleken av Kartan: [{map.Capacity()[0]}, {map.Capacity()[1]}]");
+            for (int i = 0; i < 100; i++)
             {
-                hash = (hash * 33 + c) % capacity;
-            }
+                string fn = "";
+                string ln = "";
 
-            return hash;
+                for (int j = 0; j < 5; j++)
+                {
+                    fn += GetRandomAlphabet();
+                }
+
+                for (int j = 0; j < 5; j++)
+                {
+                    ln += GetRandomAlphabet();
+                }
+
+                Student s = new Student(fn, ln);
+                map.Add(s.StudentID, s);
+            }
+            Console.WriteLine($"Kartan innehåller {map.TotalCount()} entries!");
+            Console.WriteLine($"Storleken av Kartan: [{map.Capacity()[0]}, {map.Capacity()[1]}]");
+
+            Console.WriteLine();
+
+            Console.WriteLine("Rensar HashTablen!");
+            map.Clear();
+            Console.WriteLine($"Testar att HashTable:n är clearad: {map.IsEmpty()}");
+            Console.WriteLine($"Kartan innehåller {map.TotalCount()} entries!");
+            Console.WriteLine($"Storleken av Kartan: [{map.Capacity()[0]}, {map.Capacity()[1]}]");
+            //Console.WriteLine();
+
+            //Console.WriteLine($"{}");
+            //Console.WriteLine($"{}");
+            //Console.WriteLine($"{}");
+
+            //Console.WriteLine();
+
+            //Console.WriteLine($"{}");
+            //Console.WriteLine($"{}");
+            //Console.WriteLine($"{}");
+
         }
+
+        private static string chars = "abcdefghijklmnopqrstuvwxyz";
+
+        public static char GetRandomAlphabet()
+        {
+            Random rand = new Random();
+            int index = rand.Next(0, chars.Length);
+            return chars[index];
+        }
+
     }
 }
