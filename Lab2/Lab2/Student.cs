@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
 namespace Lab2
 {
+
     public class Student
     {
         private static int _counter = 0;
@@ -37,7 +39,9 @@ namespace Lab2
 
             return sID;
         }
+
     }
+
 }
 
 

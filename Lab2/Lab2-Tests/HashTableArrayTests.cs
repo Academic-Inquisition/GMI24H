@@ -1,3 +1,5 @@
+using Lab2;
+
 namespace Lab2_Tests;
 
 using Lab2;
@@ -6,19 +8,70 @@ using Lab2;
 public class HashTableArrayTests
 {
     [TestMethod]
-    public void TestMethod1()
+    public void TestAdd()
+    {
+        // Test if program can handle empty strings
+        HashTableArray<string, Student> map = new HashTableArray<string, Student>();
+        Student emptyLastname = new Student("Markus","");
+        Student enmptyFirstname = new Student("", "Stolpe");
+        Student emptyName = new Student("", "");
+
+
+    }
+
+    [TestMethod]
+    public void TestGet()
     {
         Student student = new Student("abc", "def");
     }
 
     [TestMethod]
-    public void TestMethod2()
+    public void TestRemove()
     {
 
     }
-
     [TestMethod]
-    public void TestMethod3()
+    public void TestContainsValue()
+    {
+
+    }
+    [TestMethod]
+    public void TestContainsKey()
+    {
+
+    }
+    [TestMethod]
+    public void TestClear()
+    {
+
+    }
+    [TestMethod]
+    public void TestIsEmpty()
+    {
+
+    }
+    [TestMethod]
+    public void TestTotalCount()
+    {
+
+    }
+    [TestMethod]
+    public void TestCount()
+    {
+
+    }
+    [TestMethod]
+    public void TestBucketCount()
+    {
+
+    }
+    [TestMethod]
+    public void TestCapacity()
+    {
+
+    }
+    [TestMethod]
+    public void TestResize()
     {
 
     }
