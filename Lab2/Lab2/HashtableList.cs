@@ -21,7 +21,7 @@ namespace Lab2
 
         public HashTableList() 
         {
-            _hashTable = new List<KeyValuePair<K, V>>[_capacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
+            _hashTable = new List<KeyValuePair<K, V>>[_capacity]; //
             for (int i = 0; i < _capacity; i++) _hashTable[i] = new List<KeyValuePair<K, V>>();
             _isOccupied = new List<bool>[_capacity];
             for (int i = 0; i < _capacity; i++) _isOccupied[i] = new List<bool>();
