@@ -40,14 +40,14 @@ namespace Lab2
                 // (If necessary) Determine new size if it can be less than double the previous size
                 Resize(_capacity * 2);
             }
-
-            for (int i = 0; i < _capacity; i++)
+            else
             {
-                if (_bucketCount[i] / _bucketCapacity >= _loadFactorThreshold)
+                for (int i = 0; i < _capacity; i++)
                 {
-                    Resize(_capacity * 2);
+                    if (_bucketCount[i] / _bucketCapacity >= _loadFactorThreshold) Resize(_capacity * 2);
                 }
             }
+
 
             // Add function to check bucket load factor (just in case)
 
