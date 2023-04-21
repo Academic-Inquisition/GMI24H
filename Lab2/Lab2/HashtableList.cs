@@ -91,7 +91,7 @@ namespace Lab2
             _totalCount = 0;
             _count = 0;
 
-            _hashTable = new List<KeyValuePair<K, V>>[_capacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
+            _hashTable = new List<KeyValuePair<K, V>>[_capacity];
             _isOccupied = new List<bool>[_capacity];
         }
 
@@ -250,7 +250,7 @@ namespace Lab2
 
         public void Resize(int newCapacity)
         {
-            List<KeyValuePair<K, V>>[] hashTableTemp = new List<KeyValuePair<K, V>>[newCapacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
+            List<KeyValuePair<K, V>>[] hashTableTemp = new List<KeyValuePair<K, V>>[newCapacity];
             for (int i = 0; i < newCapacity; i++) hashTableTemp[i] = new List<KeyValuePair<K, V>>();
             List<bool>[] isOccupiedTemp = new List<bool>[newCapacity];
             for (int i = 0; i < newCapacity; i++) isOccupiedTemp[i] = new List<bool>();
