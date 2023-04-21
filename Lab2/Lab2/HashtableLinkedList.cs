@@ -205,13 +205,17 @@ namespace Lab2
                 if (pair != null)
                 {
                     K indexKey = pair.GetKey();
+                    
                     if (indexKey != null && indexKey.Equals(key))
                     {
                         K? defaultKey = default;
                         V? defaultValue = default;
 
+                        
                         KeyValuePair<K, V> defaultPair = new KeyValuePair<K, V>(defaultKey, defaultValue);
-                        //bucket[i] = defaultPair;
+                        V test = pair.GetValue();
+                        KeyValuePair<K, V> test2 = new KeyValuePair<K,V >(indexKey,test);
+                        test2  = defaultPair;
                         bool temp = _isOccupied[HashIndex].ElementAt(i);
                         temp = false;
 
