@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab2
 {
-    internal class HashTableLinkedList<K, V> : HashTableInterface<K, V>
+    public class HashTableLinkedList<K, V> : HashTableInterface<K, V>
     {
         private const int _defaultCapacity = 8;
         private const float _loadFactorThreshold = 0.7f;
@@ -211,7 +211,7 @@ namespace Lab2
                         V? defaultValue = default;
 
                         KeyValuePair<K, V> defaultPair = new KeyValuePair<K, V>(defaultKey, defaultValue);
-                        bucket[i] = defaultPair;
+                        //bucket[i] = defaultPair;
                         bool temp = _isOccupied[HashIndex].ElementAt(i);
                         temp = false;
 
