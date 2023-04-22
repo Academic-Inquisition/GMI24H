@@ -8,75 +8,176 @@ public class HashTableLinkedListTests
     [TestMethod]
     public void TestAdd()
     {
-        // Copied and pasted from array. Change what´s needed later
+        // Arrange
+        HashTableLinkedList<string, Student> map = new HashTableLinkedList<string, Student>();
+        Student tim = new Student("Tim", "Stolpe");
+        Student simon = new Student("Simon", "Stålnäbb");
+        Student markus = new Student("Markus", "Nygren");
 
-        // Test if program can handle empty strings
-        //HashTableArray<string, Student> map = new HashTableArray<string, Student>();
-        //Student emptyLastname = new Student("Markus", "");
-        //Student enmptyFirstname = new Student("", "Stolpe");
-        //Student emptyName = new Student("", "");
+        // Assert
+        Assert.IsTrue(map.Add(tim.StudentID, tim));
+        Assert.IsTrue(map.Add(simon.StudentID, simon));
+        Assert.IsTrue(map.Add(markus.StudentID, markus));
 
-
+        Assert.IsTrue(map.ContainsKey(tim.StudentID));
+        Assert.IsTrue(map.ContainsKey(simon.StudentID));
+        Assert.IsTrue(map.ContainsKey(markus.StudentID));
     }
 
     [TestMethod]
     public void TestGet()
     {
-        // test getting a student that doesn´t exist
-        // Student student = new Student("abc", "def");
+        // Arrange
+        HashTableLinkedList<string, Student> map = new HashTableLinkedList<string, Student>();
+        Student student = new Student("abc", "def");
+        Student got;
+
+        // Alter
+        map.Add(student.StudentID, student);
+        got = map.Get("v23abcde");
+
+        // Assert
+        Assert.IsTrue(got.Equals(student));
     }
 
     [TestMethod]
     public void TestRemove()
     {
-        // test with student that doesn´t exist
+        // Arrange
+        HashTableLinkedList<string, Student> map = new HashTableLinkedList<string, Student>();
+        Student student = new Student("abc", "def");
+
+        // Alter
+        map.Add(student.StudentID, student);
+
+        // Assert
+        Assert.IsTrue(map.Remove(student.StudentID));
+        Assert.IsFalse(map.ContainsKey("v23abcde"));
 
     }
+
     [TestMethod]
     public void TestContainsValue()
     {
-        // test with student that doesn´t exist
+        // Arrange
+        HashTableLinkedList<string, Student> map = new HashTableLinkedList<string, Student>();
+        Student s1 = new Student("abc", "def");
+        Student s2 = new Student("ghi", "jkl");
+        Student s3 = new Student("mno", "pqr");
 
+
+        // Alter
+        map.Add(s1.StudentID, s1);
+
+        // Assert
+        Assert.IsTrue(map.ContainsValue(s1));
+        Assert.IsFalse(map.ContainsValue(s2));
+        Assert.IsFalse(map.ContainsValue(s3));
     }
+
     [TestMethod]
     public void TestContainsKey()
     {
-        // test with student that doesn´t exist
+        // Arrange
+        HashTableLinkedList<string, Student> map = new HashTableLinkedList<string, Student>();
+        Student s1 = new Student("abc", "def");
+        Student s2 = new Student("ghi", "jkl");
+        Student s3 = new Student("mno", "pqr");
+
+
+        // Alter
+        map.Add(s1.StudentID, s1);
+
+        // Assert
+        Assert.IsTrue(map.ContainsKey("v23abcde"));
+        Assert.IsFalse(map.ContainsKey("v23ghijk"));
+        Assert.IsFalse(map.ContainsKey("v23mnopq"));
 
     }
+
     [TestMethod]
     public void TestClear()
     {
-        // test clear when the hastable is already empty?
+        // Arrange
+        HashTableLinkedList<string, Student> map = new HashTableLinkedList<string, Student>();
+        Student s1 = new Student("abc", "def");
+        Student s2 = new Student("ghi", "jkl");
+        Student s3 = new Student("mno", "pqr");
+
+
+        // Alter
+        map.Add(s1.StudentID, s1);
+        map.Add(s2.StudentID, s2);
+        map.Add(s3.StudentID, s3);
+
+        // Assert
+        Assert.AreEqual(3, map.TotalCount());
+        map.Clear();
+        Assert.AreEqual(0, map.TotalCount());
     }
+
     [TestMethod]
     public void TestIsEmpty()
     {
-        // test if empty
+        // Arrange
+        HashTableLinkedList<string, Student> map = new HashTableLinkedList<string, Student>();
+
+
+        // Assert
+        Assert.IsTrue(map.IsEmpty());
+        map.Add("h23simst", new Student("simon", "stalnabb"));
+        Assert.IsFalse(map.IsEmpty());
     }
+
     [TestMethod]
-    public void TestTotalCount()
+    public void TestResizeAuto()
     {
-        // test the size 
-    }
-    [TestMethod]
-    public void TestCount()
-    {
+        // Arrange
+        HashTableLinkedList<string, Student> map = new HashTableLinkedList<string, Student>();
+        int[] capacity = map.Capacity();
+        int[] newCapacity;
+
+        // Act
+        for (int i = 0; i < 100; i++)
+        {
+            string fn = "";
+            string ln = "";
+
+            for (int j = 0; j < 5; j++)
+            {
+                fn += Program.GetRandomAlphabet();
+            }
+
+            for (int j = 0; j < 5; j++)
+            {
+                ln += Program.GetRandomAlphabet();
+            }
+
+            Student s = new Student(fn, ln);
+            map.Add(s.StudentID, s);
+        }
+        newCapacity = map.Capacity();
+
+        // Assert
+        Assert.AreNotEqual(capacity[0], newCapacity[0]);
+        Assert.AreEqual(capacity[1], newCapacity[1]);
 
     }
-    [TestMethod]
-    public void TestBucketCount()
-    {
-        // test invalid bucket?
-    }
-    [TestMethod]
-    public void TestCapacity()
-    {
 
-    }
     [TestMethod]
-    public void TestResize()
+    public void TestResizeManual()
     {
+        // Arrange
+        HashTableLinkedList<string, Student> map = new HashTableLinkedList<string, Student>();
+        int[] capacity = map.Capacity();
+        int[] newCapacity;
 
+        // Act
+        map.Resize(capacity[0] * 2);
+        newCapacity = map.Capacity();
+
+        // Assert
+        Assert.AreEqual(capacity[0] * 2, newCapacity[0]);
+        Assert.AreEqual(capacity[1], newCapacity[1]);
     }
 }

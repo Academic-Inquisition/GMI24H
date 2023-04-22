@@ -41,7 +41,7 @@ namespace Lab2
             // Add function to check bucket load factor (just in case)
 
             // Calculate index using hash function
-            int HashIndex = Math.Abs(key.GetHashCode() % _capacity);
+            int HashIndex = Math.Abs(HashFunction(key.ToString(), _capacity));
 
             List<KeyValuePair<K,V>> bucket = _hashTable[HashIndex];
 
@@ -101,7 +101,7 @@ namespace Lab2
 
             if (key != null)
             {
-                HashIndex = Math.Abs(key.GetHashCode() % _capacity);
+                HashIndex = Math.Abs(HashFunction(key.ToString(), _capacity));
             }
             else
             {
@@ -153,7 +153,7 @@ namespace Lab2
 
             if (key != null)
             {
-                HashIndex = Math.Abs(key.GetHashCode() % _capacity);
+                HashIndex = Math.Abs(HashFunction(key.ToString(), _capacity));
             }
             else
             {
@@ -187,7 +187,7 @@ namespace Lab2
 
             if (key != null)
             {
-                HashIndex = Math.Abs(key.GetHashCode() % _capacity);
+                HashIndex = Math.Abs(HashFunction(key.ToString(), _capacity));
             }
             else
             {
@@ -268,6 +268,20 @@ namespace Lab2
             _hashTable = hashTableTemp;
             _isOccupied = isOccupiedTemp;
             _capacity = newCapacity;
+        }
+        
+        private int HashFunction(string input, int capacity)
+        {
+            int total = 0;
+            char[] c;
+            c = input.ToCharArray();
+
+            // Summing up all the ASCII values
+            // of each alphabet in the string
+            for (int k = 0; k <= c.GetUpperBound(0); k++)
+                total += (int)c[k];
+
+            return total % capacity;
         }
     }
 }

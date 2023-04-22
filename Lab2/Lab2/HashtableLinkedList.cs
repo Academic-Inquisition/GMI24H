@@ -41,7 +41,7 @@ namespace Lab2
             // Add function to check bucket load factor (just in case)
 
             // Calculate index using hash function
-            int HashIndex = Math.Abs(key.GetHashCode() % _capacity);
+            int HashIndex = Math.Abs(HashFunction(key.ToString(), _capacity));
 
             LinkedList<KeyValuePair<K, V>> bucket = _hashTable[HashIndex];
 
@@ -101,7 +101,7 @@ namespace Lab2
 
             if (key != null)
             {
-                HashIndex = Math.Abs(key.GetHashCode() % _capacity);
+                HashIndex = Math.Abs(HashFunction(key.ToString(), _capacity));
             }
             else
             {
@@ -131,7 +131,7 @@ namespace Lab2
                 LinkedList<KeyValuePair<K, V>> bucket = _hashTable[i];
                 for (int j = 0; j < bucket.Count(); j++)
                 {
-                    KeyValuePair<K, V> pair = bucket.ElementAt(i);   // Reminder: [row, column]
+                    KeyValuePair<K, V> pair = bucket.ElementAt(j);   // Reminder: [row, column]
                     V? indexValue;
 
                     if (pair != null)
@@ -153,7 +153,7 @@ namespace Lab2
 
             if (key != null)
             {
-                HashIndex = Math.Abs(key.GetHashCode() % _capacity);
+                HashIndex = Math.Abs(HashFunction(key.ToString(), _capacity));
             }
             else
             {
@@ -187,7 +187,7 @@ namespace Lab2
 
             if (key != null)
             {
-                HashIndex = Math.Abs(key.GetHashCode() % _capacity);
+                HashIndex = Math.Abs(HashFunction(key.ToString(), _capacity));
             }
             else
             {
@@ -208,22 +208,12 @@ namespace Lab2
                     
                     if (indexKey != null && indexKey.Equals(key))
                     {
-                        K? defaultKey = default;
-                        V? defaultValue = default;
-
-                        
-                        KeyValuePair<K, V> defaultPair = new KeyValuePair<K, V>(defaultKey, defaultValue);
-                        V test = pair.GetValue();
-                        KeyValuePair<K, V> test2 = new KeyValuePair<K,V >(indexKey,test);
-                        test2  = defaultPair;
+                        bucket.Remove(pair);
                         bool temp = _isOccupied[HashIndex].ElementAt(i);
                         temp = false;
 
                         _totalCount--;
-                        if (i == 0)
-                        {
-                            _count--;
-                        }
+                        _count--;
 
                         return true;
                     }
@@ -273,6 +263,26 @@ namespace Lab2
             _hashTable = hashTableTemp;
             _isOccupied = isOccupiedTemp;
             _capacity = newCapacity;
+        }
+
+        private int HashFunction(string input, int capacity)
+        {
+            long total = 0;
+            char[] c;
+            c = input.ToCharArray();
+
+            // Horner's rule for generating a polynomial
+            // of 11 using ASCII values of the characters
+            for (int k = 0; k <= c.GetUpperBound(0); k++)
+
+                total += 11 * total + (int)c[k];
+
+            total = total % capacity;
+
+            if (total < 0)
+                total += capacity;
+
+            return (int)total;
         }
     }
 }
