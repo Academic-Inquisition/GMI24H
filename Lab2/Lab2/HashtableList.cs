@@ -28,7 +28,7 @@ namespace Lab2
             _count = 0;
         }
 
-        public bool Add(K key, V value)
+        public bool Add(K key, V value, Program.CollisionMethod collisionMethod)
         {
             // WIP
             // Check load factor and resize if necessary
@@ -59,30 +59,58 @@ namespace Lab2
             }
 
             // Loopa över och kolla om man ska uppdatera värdet
-            for (int i = 0; i < bucket.Count(); i++)
+            if (collisionMethod == Program.CollisionMethod.Chaining)
             {
-                KeyValuePair<K, V> pair = bucket[i];
-
-                if (pair != null) // If index isn't empty
+                for (int i = 0; i < bucket.Count(); i++)
                 {
-                    K indexKey = pair.GetKey();
+                    KeyValuePair<K, V> pair = bucket[i];
 
-                    if (indexKey != null && indexKey.Equals(key))  // If the keys match
+                    if (pair != null) // If index isn't empty
                     {
-                        // Set the value of the pair to the new passed in value.
-                        pair.SetValue(value);
-                        return true;
+                        K indexKey = pair.GetKey();
+
+                        if (indexKey != null && indexKey.Equals(key))  // If the keys match
+                        {
+                            // Set the value of the pair to the new passed in value.
+                            pair.SetValue(value);
+                            return true;
+                        }
                     }
                 }
             }
+            else if (collisionMethod != Program.CollisionMethod.Chaining)
+            {
+                List<KeyValuePair<K, V>> newBucket;
 
-            KeyValuePair<K, V> np = new KeyValuePair<K, V>(key, value);
-            bucket.Add(np);
-            _isOccupied[HashIndex].Add(true);
-            // Increment count
-            _totalCount++;
-            _count++;
-            return true;
+                while (_hashTable[HashIndex] != null)
+                {
+                    newBucket = _hashTable[HashIndex];
+                    KeyValuePair<K, V> pair = newBucket[0];
+
+                    if (pair.GetKey().Equals(key))
+                    {
+                        KeyValuePair<K, V> np = new KeyValuePair<K, V>(key, value);
+                        newBucket.Add(np);
+                        return true;
+                    }
+
+                    if (collisionMethod == Program.CollisionMethod.LinearProbing)
+                    {
+                        HashIndex = (HashIndex + 1) % _capacity;
+                    }
+                    else if (collisionMethod == Program.CollisionMethod.QuadraticProbing)
+                    {
+                        HashIndex = (int)(Math.Pow(Convert.ToDouble(HashIndex), 2) % _capacity);
+                    }
+                }
+
+                newBucket = _hashTable[HashIndex];
+                KeyValuePair<K, V> newPair = new KeyValuePair<K, V>(key, value);
+                newBucket.Add(newPair);
+                return true;
+            }
+
+            return false;
         }
 
         public void Clear()

@@ -28,7 +28,7 @@ namespace Lab2
             _count = 0;
         }
 
-        public bool Add(K key, V value)
+        public bool Add(K key, V value, Program.CollisionMethod collisionMethod)
         {
             // WIP
             // Check load factor and resize if necessary
@@ -59,30 +59,27 @@ namespace Lab2
             }
 
             // Loopa över och kolla om man ska uppdatera värdet
-            for (int i = 0; i < bucket.Count(); i++)
+            if (collisionMethod == Program.CollisionMethod.Chaining)
             {
-                KeyValuePair<K, V> pair = bucket.ElementAt(i);
-
-                if (pair != null) // If index isn't empty
+                for (int i = 0; i < bucket.Count(); i++)
                 {
-                    K indexKey = pair.GetKey();
+                    KeyValuePair<K, V> pair = bucket.ElementAt(i);
 
-                    if (indexKey != null && indexKey.Equals(key))  // If the keys match
+                    if (pair != null) // If index isn't empty
                     {
-                        // Set the value of the pair to the new passed in value.
-                        pair.SetValue(value);
-                        return true;
+                        K indexKey = pair.GetKey();
+
+                        if (indexKey != null && indexKey.Equals(key))  // If the keys match
+                        {
+                            // Set the value of the pair to the new passed in value.
+                            pair.SetValue(value);
+                            return true;
+                        }
                     }
                 }
             }
-
-            KeyValuePair<K, V> np = new KeyValuePair<K, V>(key, value);
-            bucket.AddLast(np);
-            _isOccupied[HashIndex].AddLast(true);
-            // Increment count
-            _totalCount++;
-            _count++;
-            return true;
+            
+            return false;
         }
 
         public void Clear()
@@ -91,7 +88,7 @@ namespace Lab2
             _totalCount = 0;
             _count = 0;
 
-            _hashTable = new LinkedList<KeyValuePair<K, V>>[_capacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
+            _hashTable = new LinkedList<KeyValuePair<K, V>>[_capacity];
             _isOccupied = new LinkedList<bool>[_capacity];
         }
 
@@ -245,7 +242,7 @@ namespace Lab2
 
         public void Resize(int newCapacity)
         {
-            LinkedList<KeyValuePair<K, V>>[] hashTableTemp = new LinkedList<KeyValuePair<K, V>>[newCapacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
+            LinkedList<KeyValuePair<K, V>>[] hashTableTemp = new LinkedList<KeyValuePair<K, V>>[newCapacity];
             for (int i = 0; i < newCapacity; i++) hashTableTemp[i] = new LinkedList<KeyValuePair<K, V>>();
             LinkedList<bool>[] isOccupiedTemp = new LinkedList<bool>[newCapacity];
             for (int i = 0; i < newCapacity; i++) isOccupiedTemp[i] = new LinkedList<bool>();

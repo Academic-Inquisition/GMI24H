@@ -8,7 +8,7 @@ namespace Lab2
 {
     internal interface HashTableInterface<K, V>
     {
-        public bool Add(K key, V value);
+        public bool Add(K key, V value, Program.CollisionMethod collisionMethod);
         public V? Get(K key);
         public bool Remove(K key);
         public void Clear();

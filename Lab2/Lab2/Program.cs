@@ -5,6 +5,13 @@ namespace Lab2
 
     public class Program
     {
+        public enum CollisionMethod
+        {
+            Chaining,
+            LinearProbing,
+            QuadraticProbing
+        }
+
         public static void Main(string[] args)
         {
             HashTableInterface<string, Student> map = new HashTableLinkedList<string, Student>();
@@ -19,9 +26,9 @@ namespace Lab2
 
             Console.WriteLine();
 
-            Console.WriteLine($"Försöker lägga till Tim, Status: {(map.Add(tim.StudentID, tim) ? "Lyckades" : "Misslyckades")}");
-            Console.WriteLine($"Försöker lägga till Simon, Status: {(map.Add(simon.StudentID, simon) ? "Lyckades" : "Misslyckades")}");
-            Console.WriteLine($"Försöker lägga till Markus, Status: {(map.Add(markus.StudentID, markus) ? "Lyckades" : "Misslyckades")}");
+            Console.WriteLine($"Försöker lägga till Tim, Status: {(map.Add(tim.StudentID, tim, CollisionMethod.Chaining) ? "Lyckades" : "Misslyckades")}");
+            Console.WriteLine($"Försöker lägga till Simon, Status: {(map.Add(simon.StudentID, simon, CollisionMethod.LinearProbing) ? "Lyckades" : "Misslyckades")}");
+            Console.WriteLine($"Försöker lägga till Markus, Status: {(map.Add(markus.StudentID, markus, CollisionMethod.Chaining) ? "Lyckades" : "Misslyckades")}");
 
             Console.WriteLine();
             
@@ -69,7 +76,7 @@ namespace Lab2
                 }
 
                 Student s = new Student(fn, ln);
-                map.Add(s.StudentID, s);
+                map.Add(s.StudentID, s, CollisionMethod.Chaining);
             }
             Console.WriteLine($"Kartan innehåller {map.TotalCount()} entries!");
             Console.WriteLine($"Storleken av Kartan: [{map.Capacity()[0]}, {map.Capacity()[1]}]");

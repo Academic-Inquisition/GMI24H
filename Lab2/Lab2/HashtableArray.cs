@@ -35,7 +35,7 @@ namespace Lab2
             _bucketCount = new int[_capacity];
         }
 
-        public bool Add(K key, V value)
+        public bool Add(K key, V value, Program.CollisionMethod collisionMethod)
         {
             // WIP
             // Check load factor and resize if necessary
@@ -59,43 +59,72 @@ namespace Lab2
             // Calculate index using hash function
             int HashIndex = Math.Abs(HashFunction(key.ToString(), _capacity));
 
-            for (int i = 0; i < _bucketCapacity; i++) 
+            if (collisionMethod == Program.CollisionMethod.Chaining)
             {
-                KeyValuePair<K, V> pair = _hashTable[i, HashIndex];
-
-                if (pair != null) // If index isn't empty
+                for (int i = 0; i < _bucketCapacity; i++)
                 {
-                    K indexKey = pair.GetKey();
+                    KeyValuePair<K, V> pair = _hashTable[i, HashIndex];
 
-                    if (indexKey != null && indexKey.Equals(key))  // If the keys match
+                    if (pair != null) // If index isn't empty
                     {
-                        // Set the value of the pair to the new passed in value.
-                        pair.SetValue(value);
+                        K indexKey = pair.GetKey();
+
+                        if (indexKey != null && indexKey.Equals(key))  // If the keys match
+                        {
+                            // Set the value of the pair to the new passed in value.
+                            pair.SetValue(value);
+                            return true;
+                        }
+                    }
+                    else // If index is empty
+                    {
+                        // Add Value
+                        KeyValuePair<K, V> newPair = new KeyValuePair<K, V>(key, value);
+                        _hashTable[i, HashIndex] = newPair;
+                        _isOccupied[i, HashIndex] = true;
+                        // Increment count
+                        _totalCount++;
+                        if (i == 0)
+                        {
+                            _count++;
+                            _bucketCount[HashIndex]++;
+                        }
+                        else
+                        {
+                            _bucketCount[HashIndex]++;
+                        }
+
                         return true;
                     }
                 }
-                else // If index is empty
-                {
-                    // Add Value
-                    KeyValuePair<K, V> newPair = new KeyValuePair<K, V>(key, value);
-                    _hashTable[i, HashIndex] = newPair;
-                    _isOccupied[i, HashIndex] = true;
-                    // Increment count
-                    _totalCount++;
-                    if (i == 0)
+                
+            }
+            else
+            {
+                
+                while (_hashTable[0, HashIndex] != null){
+
+                    KeyValuePair<K, V> pair = _hashTable[0, HashIndex];
+                    if (pair.GetKey().Equals(key))
                     {
-                        _count++;
-                        _bucketCount[HashIndex]++;
-                    }
-                    else
-                    {
-                        _bucketCount[HashIndex]++;
+                        _hashTable[0, HashIndex] = new KeyValuePair<K, V>(key, value);
+                        return true;
                     }
 
-                    return true;
+                    if (collisionMethod == Program.CollisionMethod.LinearProbing)
+                    {
+                        HashIndex = (HashIndex + 1) % _capacity;
+                    }
+                    else if (collisionMethod == Program.CollisionMethod.QuadraticProbing)
+                    {
+                        HashIndex = (int)(Math.Pow(Convert.ToDouble(HashIndex), 2) % _capacity);
+                    }
                 }
+
+                _hashTable[0, HashIndex] = new KeyValuePair<K, V>(key, value);
+                return true;
             }
-            
+
             return false;
         }
 
