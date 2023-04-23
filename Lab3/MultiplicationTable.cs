@@ -8,7 +8,7 @@ namespace Lab3
 {
     internal class MultiplicationTable
     {
-        MultiplicationTable() 
+        public MultiplicationTable() 
         { 
         
         }
