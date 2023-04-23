@@ -15,7 +15,7 @@
         {
             _capacity = _defaultCapacity;
             _count = 0;
-            _hashTable = new KeyValuePair<K, V>[_capacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
+            _hashTable = new KeyValuePair<K, V>[_capacity];
             _isOccupied = new bool[_capacity];
         }
 
@@ -64,7 +64,7 @@
         {
             _capacity = _defaultCapacity;
             _count = 0;
-            _hashTable = new KeyValuePair<K, V>[_capacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
+            _hashTable = new KeyValuePair<K, V>[_capacity]; 
             _isOccupied = new bool[_capacity];
         }
 
