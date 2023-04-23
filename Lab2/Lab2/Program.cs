@@ -5,16 +5,9 @@ namespace Lab2
 
     public class Program
     {
-        public enum CollisionMethod
-        {
-            Chaining,
-            LinearProbing,
-            QuadraticProbing
-        }
-
         public static void Main(string[] args)
         {
-            HashTableInterface<string, Student> map = new HashTableList<string, Student>();
+            HashTableInterface<string, Student> map = new HashTableLinkedList<string, Student>();
 
             Student tim = new Student("Tim", "Stolpe");
             Student simon = new Student("Simon", "Stålnäbb");
