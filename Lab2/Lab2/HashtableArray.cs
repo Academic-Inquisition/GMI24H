@@ -45,6 +45,7 @@
                     _hashTable[HashIndex] = new KeyValuePair<K, V>(key, value); // Replace the value
                     return true;
                 }
+
                 if (HashIndex <= 1) // Check if the value is 0 or 1, if we don't do this we end-up in an infinite loop of hash values.
                 {
                     for (int i = 0; i < _capacity; i++) // Loop over and all positions in the hashtable
@@ -54,10 +55,13 @@
                             break;
                         }
                     }
+
                     break;
                 }
+
                 HashIndex = (int)(Math.Pow(Convert.ToDouble(HashIndex), 2) % _capacity); // Otherwise Quadratic-Probing Open Adressing
             }
+
             _hashTable[HashIndex] = new KeyValuePair<K, V>(key, value); // Add the value
             _isOccupied[HashIndex] = true; // Update isOccupied
             _count++; // Increment Count
@@ -79,6 +83,7 @@
                 KeyValuePair<K, V> pair = _hashTable[i]; // Grab the KVP
                 if (pair != null && pair.GetKey().Equals(key)) return true; // Check is the KVP is null, if it isn't compare keys and return true if found.
             }
+
             return false; // If none are found then return false
         }
 
@@ -89,6 +94,7 @@
                 KeyValuePair<K, V> pair = _hashTable[i]; // Grab the KVP
                 if (pair != null && pair.GetValue().Equals(value)) return true; // Check is the KVP is null, if it isn't compare values and return true if found.
             }
+
             return false;
         }
 
@@ -121,6 +127,7 @@
                     return true;
                 }
             }
+
             return false; // Return false for none found.
         }
 
@@ -163,6 +170,7 @@
         public static int HashFunction(string key, int capacity)
         {
             int hash = 5381; // Default Hash
+
             foreach (char c in key) // Loopa över alla karaktären i nyckel strängen
             {
                 hash = (hash * 33 + c) % capacity; // Ta orginal hashen gånger 33 + ASCII värdet för karaktären sen modulo på kapaciteten

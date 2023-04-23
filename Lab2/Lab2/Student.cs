@@ -35,7 +35,7 @@ namespace Lab2
         // ToString implementation för Student
         public override string ToString()
         {
-            return $"Id: {ID}, FirstName: {FirstName}, LastName: {LastName}, StudentID: {StudentID}";
+            return $"ID: {ID}, FirstName: {FirstName}, LastName: {LastName}, StudentID: {StudentID}";
         }
 
         // Metod för att generera det sträng-baserade Student ID:t
@@ -45,7 +45,7 @@ namespace Lab2
             DateTime date = DateTime.Now; // Hämta datumet
             if (date.Month <= 6) sID += "v"; // Om det är Juni eller Innan så V för Vår-termin
             else sID += "h"; // Om det är Juli eller efter så är det H för Höst-termin
-            sID += date.Year.ToString().Substring(2); // Lägg till dem sista 2 ifrån året, alltså 2023 -> 23
+            sID += date.Year.ToString().Substring(2); // Lägg till de sista 2 ifrån året, alltså 2023 -> 23
             sID += FirstName.ToString().Substring(0, 3).ToLower() + LastName.ToString().Substring(0, 2).ToLower(); // Hämta dem första 3 karaktärerna ifrån namnet och dem första 2 ifrån efternamnet.
             return sID; // Returna StudentID:t
         }

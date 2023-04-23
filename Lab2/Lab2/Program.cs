@@ -53,6 +53,7 @@ namespace Lab2
 
             Console.WriteLine("Adding 100 Students to test the Resize function!");
             Console.WriteLine($"Storleken av Kartan: [{map.Capacity()}]");
+
             for (int i = 0; i < 100; i++)
             {
                 string fn = "";
@@ -81,18 +82,6 @@ namespace Lab2
             Console.WriteLine($"Testar att HashTable:n är clearad: {map.IsEmpty()}");
             Console.WriteLine($"Kartan innehåller {map.TotalCount()} entries!");
             Console.WriteLine($"Storleken av Kartan: [{map.Capacity()}]");
-            //Console.WriteLine();
-
-            //Console.WriteLine($"{}");
-            //Console.WriteLine($"{}");
-            //Console.WriteLine($"{}");
-
-            //Console.WriteLine();
-
-            //Console.WriteLine($"{}");
-            //Console.WriteLine($"{}");
-            //Console.WriteLine($"{}");
-
         }
 
         private static string chars = "abcdefghijklmnopqrstuvwxyz";

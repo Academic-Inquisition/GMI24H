@@ -45,7 +45,7 @@
             KeyValuePair<K, V> newPair = new KeyValuePair<K, V>(key, value); // Create the new KVP
             bucket.AddLast(newPair); // Add it to the end of the bucket
             _isOccupied[HashIndex].AddLast(true); // Add a true to the end of the isOccupied Bucket Array
-            // Increment count
+            
             _totalCount++; // Increment the total count
             _count++; // Increment the count
             return true;
@@ -107,6 +107,7 @@
 
                 }
             }
+
             return false; // Else False
         }
 
@@ -180,6 +181,7 @@
                     }
                 }
             }
+
             return false; // Return false for failure
         }
 

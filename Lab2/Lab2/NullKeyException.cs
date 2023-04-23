@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab2
 {
-    /**
-     * Enkel implementation för en NullKeyException, används när vi får en Null-Key inmatad till någon av våra funktioner.
-     */
+    //Enkel implementation för en NullKeyException, används när vi får en Null-Key inmatad till någon av våra funktioner.
     [Serializable]
     internal class NullKeyException : Exception
     {

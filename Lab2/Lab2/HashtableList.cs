@@ -48,7 +48,7 @@
                 KeyValuePair<K, V> newPair = new KeyValuePair<K, V>(key, value); // Create the new KVP
                 bucket.Add(newPair); // Add the KVP to the bucket
                 _isOccupied[HashIndex].Add(true); // Update the isOccupied bucket slot
-                // Increment count
+                
                 _totalCount++; // Increment the total count
                 _count++; // Increment the count
                 return true;
@@ -76,8 +76,10 @@
                             break;
                         }
                     }
+
                     break;
                 }
+
                 HashIndex = (HashIndex + 1 ) % _capacity; // Otherwise Linear-Probing Open Adressing
             }
 
@@ -145,6 +147,7 @@
 
                 }
             }
+
             return false; // Else False
         }
 
@@ -211,14 +214,17 @@
                         bucket[i] = null; // Set the buckets positional value to null
                         _isOccupied[HashIndex][i] = false; // Set the positional value of the isOccupied bucket array to false
                         _totalCount--; // Decrement totalCount
+
                         if (i == 0) // Is it the first value in the bucket
                         {
                             _count--; // Decrement Count
                         }
+
                         return true; // Return true for success
                     }
                 }
             }
+
             return false; // Return false for failure
         }
 
