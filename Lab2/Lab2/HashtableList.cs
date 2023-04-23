@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lab2
+﻿namespace Lab2
 {
     public class HashTableList<K, V> : HashTableInterface<K, V>
     {
@@ -19,7 +13,7 @@ namespace Lab2
         private List<bool>[] _isOccupied;
 
 
-        public HashTableList() 
+        public HashTableList()
         {
             _hashTable = new List<KeyValuePair<K, V>>[_capacity]; //
             for (int i = 0; i < _capacity; i++) _hashTable[i] = new List<KeyValuePair<K, V>>();
@@ -28,7 +22,7 @@ namespace Lab2
             _count = 0;
         }
 
-        public bool Add(K key, V value, Program.CollisionMethod collisionMethod)
+        public bool Add(K key, V value)
         {
             // WIP
             // Check load factor and resize if necessary
@@ -43,7 +37,7 @@ namespace Lab2
             // Calculate index using hash function
             int HashIndex = Math.Abs(HashFunction(key.ToString(), _capacity));
 
-            List<KeyValuePair<K,V>> bucket = _hashTable[HashIndex];
+            List<KeyValuePair<K, V>> bucket = _hashTable[HashIndex];
 
             // Om det är första värdet som läggs till i denna bucket
             if (bucket.Count() == 0)
@@ -59,58 +53,40 @@ namespace Lab2
             }
 
             // Loopa över och kolla om man ska uppdatera värdet
-            if (collisionMethod == Program.CollisionMethod.Chaining)
+
+            List<KeyValuePair<K, V>> newBucket;
+
+            while (_hashTable[HashIndex] != null)
             {
-                for (int i = 0; i < bucket.Count(); i++)
+                newBucket = _hashTable[HashIndex];
+                if (newBucket.Count == 0) break; 
+                KeyValuePair<K, V> pair = newBucket[0];
+                if (pair != null && pair.GetKey().Equals(key))
                 {
-                    KeyValuePair<K, V> pair = bucket[i];
-
-                    if (pair != null) // If index isn't empty
+                    newBucket[0] = new KeyValuePair<K, V>(key, value);
+                    return true;
+                }
+                if (HashIndex <= 1)
+                {
+                    for (int i = 0; i < _capacity; i++)
                     {
-                        K indexKey = pair.GetKey();
-
-                        if (indexKey != null && indexKey.Equals(key))  // If the keys match
+                        if (_hashTable[i] == null)
                         {
-                            // Set the value of the pair to the new passed in value.
-                            pair.SetValue(value);
-                            return true;
+                            HashIndex = i;
+                            break;
                         }
                     }
+                    break;
                 }
-            }
-            else if (collisionMethod != Program.CollisionMethod.Chaining)
-            {
-                List<KeyValuePair<K, V>> newBucket;
-
-                while (_hashTable[HashIndex] != null)
-                {
-                    newBucket = _hashTable[HashIndex];
-                    KeyValuePair<K, V> pair = newBucket[0];
-
-                    if (pair.GetKey().Equals(key))
-                    {
-                        KeyValuePair<K, V> np = new KeyValuePair<K, V>(key, value);
-                        newBucket.Add(np);
-                        return true;
-                    }
-
-                    if (collisionMethod == Program.CollisionMethod.LinearProbing)
-                    {
-                        HashIndex = (HashIndex + 1) % _capacity;
-                    }
-                    else if (collisionMethod == Program.CollisionMethod.QuadraticProbing)
-                    {
-                        HashIndex = (int)(Math.Pow(Convert.ToDouble(HashIndex), 2) % _capacity);
-                    }
-                }
-
-                newBucket = _hashTable[HashIndex];
-                KeyValuePair<K, V> newPair = new KeyValuePair<K, V>(key, value);
-                newBucket.Add(newPair);
-                return true;
+                HashIndex = (int)(Math.Pow(Convert.ToDouble(HashIndex), 2) % _capacity);
             }
 
-            return false;
+            newBucket = _hashTable[HashIndex];
+            KeyValuePair<K, V> np2 = new KeyValuePair<K, V>(key, value);
+            newBucket.Add(np2);
+            _totalCount++;
+            _count++;
+            return true;
         }
 
         public void Clear()
@@ -235,11 +211,7 @@ namespace Lab2
                     K indexKey = pair.GetKey();
                     if (indexKey != null && indexKey.Equals(key))
                     {
-                        K? defaultKey = default;
-                        V? defaultValue = default;
-
-                        KeyValuePair<K, V> defaultPair = new KeyValuePair<K, V>(defaultKey, defaultValue);
-                        bucket[i] = defaultPair;
+                        bucket[i] = null;
                         _isOccupied[HashIndex][i] = false;
 
                         _totalCount--;
@@ -271,9 +243,9 @@ namespace Lab2
             return _hashTable[index].Count();
         }
 
-        public int[] Capacity()
+        public int Capacity()
         {
-            return new int[] { _capacity, -1 };
+            return _capacity;
         }
 
         public void Resize(int newCapacity)
@@ -297,7 +269,7 @@ namespace Lab2
             _isOccupied = isOccupiedTemp;
             _capacity = newCapacity;
         }
-        
+
         private int HashFunction(string input, int capacity)
         {
             int total = 0;

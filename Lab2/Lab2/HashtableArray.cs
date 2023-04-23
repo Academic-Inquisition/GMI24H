@@ -1,143 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lab2
+﻿namespace Lab2
 {
     public class HashTableArray<K, V> : HashTableInterface<K, V>
     {
         private const int _defaultCapacity = 8;
-        private const int _defaultBucketCapacity = _defaultCapacity / 2;
         private const float _loadFactorThreshold = 0.7f;
 
         private int _capacity;
-        private int _bucketCapacity;
-        private int _totalCount;
         private int _count;
-        
-        private KeyValuePair<K, V>[,] _hashTable; 
-        private bool[,] _isOccupied;
-        private int[] _bucketCount;
 
+        private KeyValuePair<K, V>[] _hashTable;
+        private bool[] _isOccupied;
 
-        public HashTableArray() 
+        public HashTableArray()
         {
             _capacity = _defaultCapacity;
-            _bucketCapacity = _defaultBucketCapacity;
-            _totalCount = 0;
             _count = 0;
-
-            _hashTable = new KeyValuePair<K, V>[_bucketCapacity, _capacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
-            _isOccupied = new bool[_bucketCapacity, _capacity];
-            _bucketCount = new int[_capacity];
+            _hashTable = new KeyValuePair<K, V>[_capacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
+            _isOccupied = new bool[_capacity];
         }
 
-        public bool Add(K key, V value, Program.CollisionMethod collisionMethod)
+        public bool Add(K key, V value)
         {
             // WIP
             // Check load factor and resize if necessary
-            if (_count / _capacity >= _loadFactorThreshold) 
+            if (_count / _capacity >= _loadFactorThreshold)
             {
                 // (If necessary) Determine new size if it can be less than double the previous size
                 Resize(_capacity * 2);
             }
-            else
-            {
-                for (int i = 0; i < _capacity; i++)
-                {
-                    if (_bucketCount[i] / _bucketCapacity >= _loadFactorThreshold) 
-                        Resize(_capacity * 2);
-                }
-            }
-
-
-            // Add function to check bucket load factor (just in case)
 
             // Calculate index using hash function
             int HashIndex = Math.Abs(HashFunction(key.ToString(), _capacity));
 
-            if (collisionMethod == Program.CollisionMethod.Chaining)
+
+            while (_hashTable[HashIndex] != null)
             {
-                for (int i = 0; i < _bucketCapacity; i++)
+                KeyValuePair<K, V> pair = _hashTable[HashIndex];
+                if (pair.GetKey().Equals(key))
                 {
-                    KeyValuePair<K, V> pair = _hashTable[i, HashIndex];
-
-                    if (pair != null) // If index isn't empty
-                    {
-                        K indexKey = pair.GetKey();
-
-                        if (indexKey != null && indexKey.Equals(key))  // If the keys match
-                        {
-                            // Set the value of the pair to the new passed in value.
-                            pair.SetValue(value);
-                            return true;
-                        }
-                    }
-                    else // If index is empty
-                    {
-                        // Add Value
-                        KeyValuePair<K, V> newPair = new KeyValuePair<K, V>(key, value);
-                        _hashTable[i, HashIndex] = newPair;
-                        _isOccupied[i, HashIndex] = true;
-                        // Increment count
-                        _totalCount++;
-                        if (i == 0)
-                        {
-                            _count++;
-                            _bucketCount[HashIndex]++;
-                        }
-                        else
-                        {
-                            _bucketCount[HashIndex]++;
-                        }
-
-                        return true;
-                    }
+                    _hashTable[HashIndex] = new KeyValuePair<K, V>(key, value);
+                    return true;
                 }
-                
-            }
-            else
-            {
-                
-                while (_hashTable[0, HashIndex] != null){
-
-                    KeyValuePair<K, V> pair = _hashTable[0, HashIndex];
-                    if (pair.GetKey().Equals(key))
+                if (HashIndex <= 1)
+                {
+                    for (int i = 0; i < _capacity; i++)
                     {
-                        _hashTable[0, HashIndex] = new KeyValuePair<K, V>(key, value);
-                        return true;
+                        if (_hashTable[i] == null) { 
+                            HashIndex = i;
+                            break;
+                        }
                     }
-
-                    if (collisionMethod == Program.CollisionMethod.LinearProbing)
-                    {
-                        HashIndex = (HashIndex + 1) % _capacity;
-                    }
-                    else if (collisionMethod == Program.CollisionMethod.QuadraticProbing)
-                    {
-                        HashIndex = (int)(Math.Pow(Convert.ToDouble(HashIndex), 2) % _capacity);
-                    }
+                    break;
                 }
-
-                _hashTable[0, HashIndex] = new KeyValuePair<K, V>(key, value);
-                return true;
+                HashIndex = (int)(Math.Pow(Convert.ToDouble(HashIndex), 2) % _capacity);
             }
-
-            return false;
+            _hashTable[HashIndex] = new KeyValuePair<K, V>(key, value);
+            _isOccupied[HashIndex] = true;
+            _count++;
+            return true;
         }
 
         public void Clear()
         {
             _capacity = _defaultCapacity;
-            _bucketCapacity = _defaultBucketCapacity;
-            _totalCount = 0;
             _count = 0;
-
-            _hashTable = new KeyValuePair<K, V>[_bucketCapacity, _capacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
-            _isOccupied = new bool[_bucketCapacity, _capacity];
-            _bucketCount = new int[_capacity];
+            _hashTable = new KeyValuePair<K, V>[_capacity]; // I am confusion, men jag tror att det blir såhär om man ska använda arrays som buckets?
+            _isOccupied = new bool[_capacity];
         }
 
         public bool ContainsKey(K key)
@@ -153,16 +81,11 @@ namespace Lab2
                 throw new NullKeyException();
             }
 
-            for (int i = 0; i < _bucketCapacity; i++) 
+            for (int i = 0; i < _capacity; i++)
             {
-                KeyValuePair<K, V> pair = _hashTable[i, HashIndex];  // Reminder: [row, column]
-                K? indexKey = default;
-
-                if (pair != null) indexKey = pair.GetKey();
-                
-                if (indexKey != null && indexKey.Equals(key)) return true;
+                KeyValuePair<K, V> pair = _hashTable[i];
+                if (pair != null && pair.GetKey().Equals(key)) return true;
             }
-
             return false;
         }
 
@@ -171,21 +94,9 @@ namespace Lab2
             // Det går säkert att göra den här funktionen mer effektiv
             for (int i = 0; i < _capacity; i++)
             {
-                for (int j = 0; j < _bucketCapacity; j++) 
-                {
-                    KeyValuePair<K, V> pair = _hashTable[j, i];   // Reminder: [row, column]
-                    V? indexValue;
-
-                    if (pair != null)
-                    {
-                        indexValue = Get(pair.GetKey());
-                        if (indexValue != null && indexValue.Equals(value)) return true;
-                    }
-
-                }
-               
+                KeyValuePair<K, V> pair = _hashTable[i];
+                if (pair != null && pair.GetValue().Equals(value)) return true;
             }
-
             return false;
         }
 
@@ -201,16 +112,11 @@ namespace Lab2
             {
                 throw new NullKeyException();
             }
-            
-            for (int i = 0; i < _bucketCapacity; i++)
-            {
-                KeyValuePair<K, V> pair = _hashTable[i, HashIndex];   // Reminder: [row, column]
 
-                if (pair != null)
-                {
-                    K indexKey = pair.GetKey();
-                    if (indexKey != null && indexKey.Equals(key)) return pair.GetValue();
-                }
+            for (int i = 0; i < _capacity; i++)
+            {
+                KeyValuePair<K,V> pair = _hashTable[i];
+                if (pair != null && pair.GetKey().Equals(key)) return pair.GetValue();
             }
 
             return default;
@@ -223,48 +129,23 @@ namespace Lab2
 
         public bool Remove(K key)
         {
-            int HashIndex = Math.Abs(HashFunction(key.ToString(), _capacity));
-
-            if (_bucketCount[HashIndex] == 0) return false;
-
-            for (int i = 0; i < _bucketCapacity; i++)
+            for (int i = 0; i < _capacity; i++)
             {
-                KeyValuePair<K, V> pair = _hashTable[i, HashIndex];   // Reminder: [row, column]
-
-                if (pair != null)
+                KeyValuePair<K, V> pair = _hashTable[i];
+                if (pair != null && pair.GetKey().Equals(key))
                 {
-                    K indexKey = pair.GetKey();
-                    if (indexKey != null && indexKey.Equals(key))
-                    {
-                        K? defaultKey = default;
-                        V? defaultValue = default;
-
-                        KeyValuePair<K, V> defaultPair = new KeyValuePair<K, V>(defaultKey, defaultValue);
-                        _hashTable[i, HashIndex] = defaultPair;
-                        _isOccupied[i, HashIndex] = false;
-
-                        _totalCount--;
-                        if (i == 0)
-                        {
-                            _count--;
-                            _bucketCount[HashIndex]--;
-                        }
-                        else
-                        {
-                            _bucketCount[HashIndex]--;
-                        }
-
-                        return true;
-                    }
+                    _hashTable[i] = null;
+                    _isOccupied[i] = false;
+                    _count--;
+                    return true;
                 }
             }
-
             return false;
         }
 
         public int TotalCount()
         {
-            return _totalCount;
+            return _count;
         }
 
         public int Count()
@@ -274,35 +155,28 @@ namespace Lab2
 
         public int BucketCount(int index)
         {
-            return _bucketCount[index];
+            return _count;
         }
 
-        public int[] Capacity()
+        public int Capacity()
         {
-            return new int[] { _capacity, _bucketCapacity };
+            return _capacity;
         }
 
         public void Resize(int newCapacity)
         {
-            KeyValuePair<K, V>[,] hashTableTemp = new KeyValuePair<K, V>[newCapacity / 2, newCapacity];
-            int[] bucketCountTemp = new int[newCapacity];
-            bool[,] isOccupiedTemp = new bool[newCapacity / 2, newCapacity];
+            KeyValuePair<K, V>[] hashTableTemp = new KeyValuePair<K, V>[newCapacity];
+            bool[] isOccupiedTemp = new bool[newCapacity];
 
             for (int i = 0; i < _capacity; i++)
             {
-                for (int j = 0; j < _bucketCapacity; j++)
-                {
-                    hashTableTemp[j, i] = _hashTable[j, i];
-                    bucketCountTemp[i] = _bucketCount[i];
-                    isOccupiedTemp[j, i] = _isOccupied[j, i];
-                }
+                hashTableTemp[i] = _hashTable[i];
+                isOccupiedTemp[i] = _isOccupied[i];
             }
 
             _hashTable = hashTableTemp;
-            _bucketCount = bucketCountTemp;
             _isOccupied = isOccupiedTemp;
             _capacity = newCapacity;
-            _bucketCapacity = newCapacity / 2;
         }
 
         public static int HashFunction(string key, int capacity)

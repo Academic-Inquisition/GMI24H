@@ -8,7 +8,7 @@ namespace Lab2
 {
     internal interface HashTableInterface<K, V>
     {
-        public bool Add(K key, V value, Program.CollisionMethod collisionMethod);
+        public bool Add(K key, V value);
         public V? Get(K key);
         public bool Remove(K key);
         public void Clear();
@@ -18,7 +18,7 @@ namespace Lab2
         public int TotalCount();
         public int Count();
         public int BucketCount(int index);
-        public int[] Capacity();
+        public int Capacity();
         public void Resize(int newCapacity);
     }
 }

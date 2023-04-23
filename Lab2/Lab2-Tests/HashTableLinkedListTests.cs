@@ -134,8 +134,8 @@ public class HashTableLinkedListTests
     {
         // Arrange
         HashTableLinkedList<string, Student> map = new HashTableLinkedList<string, Student>();
-        int[] capacity = map.Capacity();
-        int[] newCapacity;
+        int capacity = map.Capacity();
+        int newCapacity;
 
         // Act
         for (int i = 0; i < 100; i++)
@@ -159,8 +159,7 @@ public class HashTableLinkedListTests
         newCapacity = map.Capacity();
 
         // Assert
-        Assert.AreNotEqual(capacity[0], newCapacity[0]);
-        Assert.AreEqual(capacity[1], newCapacity[1]);
+        Assert.AreNotEqual(capacity, newCapacity);
 
     }
 
@@ -169,15 +168,14 @@ public class HashTableLinkedListTests
     {
         // Arrange
         HashTableLinkedList<string, Student> map = new HashTableLinkedList<string, Student>();
-        int[] capacity = map.Capacity();
-        int[] newCapacity;
+        int capacity = map.Capacity();
+        int newCapacity;
 
         // Act
-        map.Resize(capacity[0] * 2);
+        map.Resize(capacity * 2);
         newCapacity = map.Capacity();
 
         // Assert
-        Assert.AreEqual(capacity[0] * 2, newCapacity[0]);
-        Assert.AreEqual(capacity[1], newCapacity[1]);
+        Assert.AreEqual(capacity * 2, newCapacity);
     }
 }

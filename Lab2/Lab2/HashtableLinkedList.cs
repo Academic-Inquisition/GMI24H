@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lab2
+﻿namespace Lab2
 {
     public class HashTableLinkedList<K, V> : HashTableInterface<K, V>
     {
@@ -28,7 +22,7 @@ namespace Lab2
             _count = 0;
         }
 
-        public bool Add(K key, V value, Program.CollisionMethod collisionMethod)
+        public bool Add(K key, V value)
         {
             // WIP
             // Check load factor and resize if necessary
@@ -44,42 +38,13 @@ namespace Lab2
             int HashIndex = Math.Abs(HashFunction(key.ToString(), _capacity));
 
             LinkedList<KeyValuePair<K, V>> bucket = _hashTable[HashIndex];
-
-            // Om det är första värdet som läggs till i denna bucket
-            if (bucket.Count() == 0)
-            {
-                // Add Value
-                KeyValuePair<K, V> newPair = new KeyValuePair<K, V>(key, value);
-                bucket.AddLast(newPair);
-                _isOccupied[HashIndex].AddLast(true);
-                // Increment count
-                _totalCount++;
-                _count++;
-                return true;
-            }
-
-            // Loopa över och kolla om man ska uppdatera värdet
-            if (collisionMethod == Program.CollisionMethod.Chaining)
-            {
-                for (int i = 0; i < bucket.Count(); i++)
-                {
-                    KeyValuePair<K, V> pair = bucket.ElementAt(i);
-
-                    if (pair != null) // If index isn't empty
-                    {
-                        K indexKey = pair.GetKey();
-
-                        if (indexKey != null && indexKey.Equals(key))  // If the keys match
-                        {
-                            // Set the value of the pair to the new passed in value.
-                            pair.SetValue(value);
-                            return true;
-                        }
-                    }
-                }
-            }
-            
-            return false;
+            KeyValuePair<K, V> newPair = new KeyValuePair<K, V>(key, value);
+            bucket.AddLast(newPair);
+            _isOccupied[HashIndex].AddLast(true);
+            // Increment count
+            _totalCount++;
+            _count++;
+            return true;
         }
 
         public void Clear()
@@ -202,7 +167,7 @@ namespace Lab2
                 if (pair != null)
                 {
                     K indexKey = pair.GetKey();
-                    
+
                     if (indexKey != null && indexKey.Equals(key))
                     {
                         bucket.Remove(pair);
@@ -235,9 +200,9 @@ namespace Lab2
             return _hashTable[index].Count();
         }
 
-        public int[] Capacity()
+        public int Capacity()
         {
-            return new int[] { _capacity, -1 };
+            return _capacity;
         }
 
         public void Resize(int newCapacity)

@@ -14,7 +14,7 @@ namespace Lab2
 
         public static void Main(string[] args)
         {
-            HashTableInterface<string, Student> map = new HashTableLinkedList<string, Student>();
+            HashTableInterface<string, Student> map = new HashTableList<string, Student>();
 
             Student tim = new Student("Tim", "Stolpe");
             Student simon = new Student("Simon", "Stålnäbb");
@@ -26,9 +26,9 @@ namespace Lab2
 
             Console.WriteLine();
 
-            Console.WriteLine($"Försöker lägga till Tim, Status: {(map.Add(tim.StudentID, tim, CollisionMethod.Chaining) ? "Lyckades" : "Misslyckades")}");
-            Console.WriteLine($"Försöker lägga till Simon, Status: {(map.Add(simon.StudentID, simon, CollisionMethod.LinearProbing) ? "Lyckades" : "Misslyckades")}");
-            Console.WriteLine($"Försöker lägga till Markus, Status: {(map.Add(markus.StudentID, markus, CollisionMethod.Chaining) ? "Lyckades" : "Misslyckades")}");
+            Console.WriteLine($"Försöker lägga till Tim, Status: {(map.Add(tim.StudentID, tim) ? "Lyckades" : "Misslyckades")}");
+            Console.WriteLine($"Försöker lägga till Simon, Status: {(map.Add(simon.StudentID, simon) ? "Lyckades" : "Misslyckades")}");
+            Console.WriteLine($"Försöker lägga till Markus, Status: {(map.Add(markus.StudentID, markus) ? "Lyckades" : "Misslyckades")}");
 
             Console.WriteLine();
             
@@ -51,7 +51,7 @@ namespace Lab2
 
             Console.WriteLine();
 
-            Console.WriteLine($"Storleken av Kartan: [{map.Capacity()[0]}, {map.Capacity()[1]}]");
+            Console.WriteLine($"Storleken av Kartan: [{map.Capacity()}");
             Console.WriteLine($"Kartan innehåller {map.TotalCount()} entries!");
             Console.WriteLine($"Tar bort 'v23timst': Status: {(map.Remove(tim.StudentID) ? "Lyckades" : "Misslyckades")}");
             Console.WriteLine($"Kartan innehåller {map.TotalCount()} entries!");
@@ -59,7 +59,7 @@ namespace Lab2
             Console.WriteLine();
 
             Console.WriteLine("Adding 100 Students to test the Resize function!");
-            Console.WriteLine($"Storleken av Kartan: [{map.Capacity()[0]}, {map.Capacity()[1]}]");
+            Console.WriteLine($"Storleken av Kartan: [{map.Capacity()}]");
             for (int i = 0; i < 100; i++)
             {
                 string fn = "";
@@ -76,10 +76,10 @@ namespace Lab2
                 }
 
                 Student s = new Student(fn, ln);
-                map.Add(s.StudentID, s, CollisionMethod.Chaining);
+                map.Add(s.StudentID, s);
             }
             Console.WriteLine($"Kartan innehåller {map.TotalCount()} entries!");
-            Console.WriteLine($"Storleken av Kartan: [{map.Capacity()[0]}, {map.Capacity()[1]}]");
+            Console.WriteLine($"Storleken av Kartan: [{map.Capacity()}]");
 
             Console.WriteLine();
 
@@ -87,7 +87,7 @@ namespace Lab2
             map.Clear();
             Console.WriteLine($"Testar att HashTable:n är clearad: {map.IsEmpty()}");
             Console.WriteLine($"Kartan innehåller {map.TotalCount()} entries!");
-            Console.WriteLine($"Storleken av Kartan: [{map.Capacity()[0]}, {map.Capacity()[1]}]");
+            Console.WriteLine($"Storleken av Kartan: [{map.Capacity()}]");
             //Console.WriteLine();
 
             //Console.WriteLine($"{}");
