@@ -6,26 +6,35 @@ using System.Threading.Tasks;
 
 namespace Lab3
 {
-    internal class MultiplicationTable
+   public class MultiplicationTable
     {
-        public MultiplicationTable(int table) 
-        { 
-            
-                /*Pseudo kod för denna uppgift skulle kunna se ut ungefär såhär. 
-                Metoden kommer inte behöva något värde inmatat för att den ska skriva ut multipliktionstabellerna från 1-9 oavsätt.
-                Det finns ingen variation för output.
-                Så hur den skulle kunna se ut.
-                For (i in range 1-10){
-                    for(j in range 1-10){
-                        skriv ij 
-                
-                        }
-                }
-                */
-        }
-         public int MultiplicationTableFunc( int _multiTable)
+            /*Pseudo kod för denna uppgift skulle kunna se ut ungefär såhär. 
+            Metoden kommer inte behöva något värde inmatat för att den ska skriva ut multipliktionstabellerna från 1-9 oavsätt.
+            Det finns ingen variation för output.
+            Så hur den skulle kunna se ut på ett ungefär. 
+            for (int i =1; i<10; i++){
+                for(int j =1; j<10; j++){
+                    Console.WriteLine(i*j)
+                    }
+            }
+            Kom på att man behöver lagra datan också så gjorde så att koden sparas i en 2d array och retunerar den,
+            */
+        
+        public static int[,] CreateMultiplicationTable( )
         {
-            return _multiTable;
+            int[,] result = new int[10, 10];
+            for (int i = 1; i < 10; i++)// make the tables 1-9
+            {
+                Console.WriteLine("\n{0}:ans-tabell\n", i);
+
+                for (int j = 1; j < 10; j++) // Multiplý each number 1-10
+                {
+                    result[i, j] = i*j;
+                    Console.WriteLine(result[i,j]);
+                    
+                }
+            }
+            return result;
         }
     }
 }
