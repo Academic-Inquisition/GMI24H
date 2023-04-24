@@ -8,17 +8,13 @@ namespace Lab3
 {
     internal class MinimumArrayValue
     {
-        
+        private readonly int[] _array;
 
-        private int[] array;
-        private readonly int arraySize;
 
         public MinimumArrayValue(int arraySize)
         {
-            this.arraySize = arraySize;
-            array = GenerateArray(this.arraySize);
+            _array = GenerateArray(arraySize);
         }
-        
 
         private int[] GenerateArray(int size) 
         {
@@ -51,10 +47,11 @@ namespace Lab3
 
         public int Run()
         {
-            int minValue = array[0];
-            for (int i = 1; i < array.Length; i++)
+            int minValue = _array[0];
+
+            for (int i = 1; i < _array.Length; i++)
             {
-                if (array[i] < minValue) minValue = array[i];
+                if (_array[i] < minValue) minValue = _array[i];
             }
 
             return minValue;
@@ -62,7 +59,7 @@ namespace Lab3
 
         public string GetArray() 
         {
-            string result = string.Join(", ", array);
+            string result = string.Join(", ", _array);
             return result;
         }
     }
