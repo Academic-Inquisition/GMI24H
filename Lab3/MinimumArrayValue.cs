@@ -55,6 +55,8 @@ namespace Lab3
             }
 
             return minValue; // O(1)
+
+            // Total tidskomplexitet: 
         }
 
         public string GetArray() 
