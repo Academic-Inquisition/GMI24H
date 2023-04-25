@@ -13,21 +13,21 @@ namespace Lab3
 
         public MinimumArrayValue(int arraySize)
         {
-            _array = GenerateArray(arraySize);
+            _array = GenerateArray(arraySize); 
         }
 
         private int[] GenerateArray(int size) 
         {
-            int[] temp = new int[size];
-            Random rnd;
+            int[] temp = new int[size]; 
+            Random rnd; 
 
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < size; i++) 
             { 
-                rnd = new Random();
-                temp[i] = rnd.Next(25);
+                rnd = new Random(); 
+                temp[i] = rnd.Next(25); 
             }
 
-            return temp;
+            return temp; 
         }
 
         /*
@@ -56,7 +56,7 @@ namespace Lab3
 
             return minValue; // O(1)
 
-            // Total tidskomplexitet: 
+            // Total tidskomplexitet: O(n)
         }
 
         public string GetArray() 
