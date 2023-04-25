@@ -47,14 +47,14 @@ namespace Lab3
 
         public int Run()
         {
-            int minValue = _array[0];
+            int minValue = _array[0]; // O(1)
 
-            for (int i = 1; i < _array.Length; i++)
+            for (int i = 1; i < _array.Length; i++) // O(n)
             {
-                if (_array[i] < minValue) minValue = _array[i];
+                if (_array[i] < minValue) minValue = _array[i]; // O(1)
             }
 
-            return minValue;
+            return minValue; // O(1)
         }
 
         public string GetArray() 
