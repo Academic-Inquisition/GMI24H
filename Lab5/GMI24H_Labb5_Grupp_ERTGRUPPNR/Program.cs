@@ -118,6 +118,14 @@ internal class Program
         jumpSearchStopwatch.Stop();
         jumpSearchTime = jumpSearchStopwatch.Elapsed;
 
+        int[] linear = { 0, 1, 45, 69, 10, 52, 130 };
+        Linear_Search linear_Search = new Linear_Search();
+        Stopwatch linearSearchStopwatch = new Stopwatch();
+        linearSearchStopwatch.Start();
+        linear_Search.Search(linear, 130); // Didn´t add the exception handling since it makes it act weird for some reason
+        linearSearchStopwatch.Stop();
+        linearSearchTime = linearSearchStopwatch.Elapsed;
+
         /**
          * Redovisnings kod för Sort-Algorithmer går här!
          */
