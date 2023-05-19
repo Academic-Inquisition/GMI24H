@@ -128,11 +128,12 @@ internal class Program
         binarySearchStopwatch.Stop();
         binarySearchTime = jumpSearchStopwatch.Elapsed;
 
-        int[] linear = { 0, 1, 45, 69, 10, 52, 130 };
+        int[] linear = { 0, 1, 45, 69, 10, 52, 130, 65, 32, 75, 735, 90, 50 };
         Linear_Search linear_Search = new Linear_Search();
         Stopwatch linearSearchStopwatch = new Stopwatch();
         linearSearchStopwatch.Start();
-        linear_Search.Search(linear, 130); // Didn´t add the exception handling since it makes it act weird for some reason
+        int lfound =linear_Search.Search(linear, 90); 
+        if (lfound != 11) throw new Exception("Jump Search failed!");
         linearSearchStopwatch.Stop();
         linearSearchTime = linearSearchStopwatch.Elapsed;
 
