@@ -38,9 +38,11 @@ internal class Program
         for (int i = 0; i < 5; i++)
         {
             int[] randomNumbers = new int[1000];
+            Random random = new Random();
+
             for (int j = 0; j < randomNumbers.Length; j++)
             {
-                randomNumbers[j] = new Random().Next(0, 100);
+                randomNumbers[j] = random.Next(0, 100);
             }
 
             switch (i)
@@ -75,10 +77,9 @@ internal class Program
                     Quick_Sort quickSort = new Quick_Sort();
                     Stopwatch quickSortStopwatch = new Stopwatch();
                     quickSortStopwatch.Start();
-                    quickSort.Sort(randomNumbers);
+                    quickSort.Sort(randomNumbers, 0, randomNumbers.Length - 1);
                     quickSortStopwatch.Stop();
                     quickSortTime = quickSortStopwatch.Elapsed;
-
                     break;
                 case 4:
                     Selection_Sort selectionSort = new Selection_Sort();
@@ -118,6 +119,15 @@ internal class Program
         jumpSearchStopwatch.Stop();
         jumpSearchTime = jumpSearchStopwatch.Elapsed;
 
+        int[] bsArray = { 0, 1, 2, 3, 4, 6, 28, 34, 34, 38, 67, 69, 347, 467 };
+        Binary_Search bs = new Binary_Search();
+        Stopwatch binarySearchStopwatch = new Stopwatch();
+        binarySearchStopwatch.Start();
+        found = bs.Search(bsArray, 347);
+        if (found != 12) throw new Exception("Binary Search failed!");
+        binarySearchStopwatch.Stop();
+        binarySearchTime = jumpSearchStopwatch.Elapsed;
+
         int[] linear = { 0, 1, 45, 69, 10, 52, 130 };
         Linear_Search linear_Search = new Linear_Search();
         Stopwatch linearSearchStopwatch = new Stopwatch();
@@ -129,7 +139,7 @@ internal class Program
         /**
          * Redovisnings kod för Sort-Algorithmer går här!
          */
-        Console.WriteLine("Search Timings:");
+        Console.WriteLine("\nSearch Timings:");
         if (binarySearchTime != null)
             Console.WriteLine($"    Binary Search Time:  {binarySearchTime}");
         if (linearSearchTime != null)

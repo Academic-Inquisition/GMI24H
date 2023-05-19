@@ -7,19 +7,36 @@ public class Quick_Sort
 
     public void Sort(int[] array, int start, int end)
     {
-        int divider = start;
+        var i = start;
+        var j = end;
+        var pivot = array[start];
 
-        for (int i = 0; i < array.Length; i++)
+        while (i <= j)
         {
-            if (array[i] < divider) 
+            while (array[i] < pivot)
             {
-                
+                i++;
             }
 
-            if (array[i] >= divider)
+            while (array[j] > pivot)
             {
+                j--;
+            }
 
+            if (i <= j)
+            {
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+                i++;
+                j--;
             }
         }
+
+        if (start < j)
+            Sort(array, start, j);
+
+        if (i < end)
+            Sort(array, i, end);
     }
 }
