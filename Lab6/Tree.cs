@@ -60,15 +60,19 @@ public class Tree<T>
 
     public void Print_Structure(Node<T> node, int level)
     {
-        if (level == 0)
+        if (level == 0) 
+        { 
             Console.WriteLine($"|_" + node._value);
+        }
         else
         {
             StringBuilder sb = new StringBuilder();
+
             for (int i = 0; i < level; i++)
             {
                 sb.Append("   ");
             }
+
             sb.Append($"|_" + node._value);
             Console.WriteLine(sb.ToString());
         }
