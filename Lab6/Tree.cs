@@ -4,11 +4,9 @@ using System.Text;
 
 public class Tree<T>
 {
-    public Node<T> _root { get; set; }
+    public Node<T>? _root { get; set; }
 
-    public Tree()
-    {
-    }
+    public Tree() { }
 
     public Node<T> AddRoot(T value)
     {
@@ -45,6 +43,7 @@ public class Tree<T>
         else
         {
             node.Parent.Children.Remove(node);
+            node.Parent = null;
         }
     }
 
@@ -62,27 +61,54 @@ public class Tree<T>
 
     public void Print_Structure(Node<T> node, int level)
     {
-        if (level == 0)
-            Console.WriteLine($"|_" + node._value);
-        else
-        {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < level; i++)
-            {
-                sb.Append("   ");
-            }
-            sb.Append($"|_" + node._value);
-            Console.WriteLine(sb.ToString());
-        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) sb.Append("   ");
+        sb.Append($"|_" + node._value);
+        Console.WriteLine(sb.ToString());
         foreach (Node<T> child in node.Children)
         {
             Print_Structure(child, level + 1);
         }
     }
 
-    public void FindParent()
+    public Node<T> FindParent(Node<T> node)
     {
+        if (node == null)
+        {
+            throw new ArgumentNullException("Node cannot be null");
+        }
+        else if (node == _root)
+        {
+            return _root;
+        }
+        else
+        {
+            return node.Parent;
+        }
+    }
+    
+    public Node<T>? FindNode(T value)
+    {
+        if (_root == null) return null;
+        return FindNode(_root, value);
+    }
 
+    private Node<T> FindNode(Node<T> node, T value)
+    {
+        if (node._value.Equals(value))
+        {
+            return node;
+        }
+
+        foreach (Node<T> child in node.Children)
+        {
+            if (FindNode(child, value) != null)
+            {
+                return FindNode(child, value);
+            }
+        }
+
+        return null;
     }
 
 }

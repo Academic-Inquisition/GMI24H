@@ -36,5 +36,8 @@ public class Program
         tree.Print();
         Console.WriteLine();
 
+        // Find Node with Value 7
+        var node72 = tree.FindNode(7);
+        Console.WriteLine($"Found node with value {node72._value}: With Parent: {node72.Parent._value}, With {node72.Children.Count} Children");
     }
 }
