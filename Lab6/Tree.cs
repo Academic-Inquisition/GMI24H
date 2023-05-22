@@ -10,7 +10,7 @@ public class Tree<T>
 
     public Node<T> AddRoot(T value)
     {
-        if (_root != null)
+        if (_root != null) // if a root already exist then simply return the root.
         {
             return _root;
         }
@@ -24,7 +24,7 @@ public class Tree<T>
         if (Parent == null) throw new ArgumentNullException("Parent Node cannot be null");
 
         Node<T> child = new Node<T>(value);
-        child.Parent = Parent;
+        child.Parent = Parent; // We need to assign the child a parent.
         Parent.Children.Add(child);
 
         return child;
@@ -40,7 +40,7 @@ public class Tree<T>
         }
         else
         {
-            node.Parent.Children.Remove(node);
+            node.Parent.Children.Remove(node); // remove a children first then set the parent to null so it becomes empty.
             node.Parent = null;
         }
     }
@@ -60,7 +60,7 @@ public class Tree<T>
     public void Print_Structure(Node<T> node, int level)
     {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < level; i++) sb.Append("   ");
+        for (int i = 0; i < level; i++) sb.Append("   "); // Build a string that prints the values of all nodes. 
         sb.Append($"|_" + node._value);
         Console.WriteLine(sb.ToString());
         foreach (Node<T> child in node.Children)
@@ -73,11 +73,11 @@ public class Tree<T>
     {
         if (node == null)
         {
-            throw new ArgumentNullException("Node cannot be null");
+            throw new ArgumentNullException("Node cannot be null"); 
         }
         else if (node == _root)
         {
-            return _root;
+            return _root; // If you don´t check the root you might end up with an infinite loop if the user wants the rootvalue.
         }
         else
         {
@@ -87,7 +87,7 @@ public class Tree<T>
     
     public Node<T>? FindNode(T value)
     {
-        if (_root == null) return null;
+        if (_root == null) return null; // If there´s no root, then there´s no tree so return null
         return FindNode(_root, value);
     }
 
@@ -98,7 +98,7 @@ public class Tree<T>
             return node;
         }
 
-        foreach (Node<T> child in node.Children)
+        foreach (Node<T> child in node.Children) // Search through all the children until the correct value is found
         {
             if (FindNode(child, value) != null)
             {
