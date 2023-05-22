@@ -14,28 +14,26 @@ public class Tree<T>
         {
             return _root;
         }
+
         _root = new Node<T>(value);
         return _root;
     }
 
     public Node<T> AddChild(Node<T> Parent, T value)
     {
-        if (Parent == null)
-        {
-            throw new ArgumentNullException("Parent Node cannot be null");
-        }
+        if (Parent == null) throw new ArgumentNullException("Parent Node cannot be null");
+
         Node<T> child = new Node<T>(value);
         child.Parent = Parent;
         Parent.Children.Add(child);
+
         return child;
     }
 
     public void Remove(Node<T> node)
     {
-        if (node == null)
-        {
-            throw new ArgumentNullException("Node cannot be null");
-        }
+        if (node == null) throw new ArgumentNullException("Node cannot be null");
+        
         if (node == _root)
         {
             _root = null;
