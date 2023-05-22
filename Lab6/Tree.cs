@@ -15,27 +15,26 @@ public class Tree<T>
         {
             return _root
         }
+
         _root = new Node<T>(value);
         return _root;
     }
 
-    public void AddChild(Node<T> Parent, T value)
+    public Node AddChild(Node<T> Parent, T value)
     {
-        if (Parent == null)
-        {
-            throw new ArgumentNullException("Parent Node cannot be null");
-        }
+        if (Parent == null) throw new ArgumentNullException("Parent Node cannot be null");
+
         Node<T> child = new Node<T>(value);
         child.Parent = Parent;
         Parent.Children.Add(child);
+
+        return child;
     }
 
     public void Remove(Node<T> node)
     {
-        if (node == null)
-        {
-            throw new ArgumentNullException("Node cannot be null");
-        }
+        if (node == null) throw new ArgumentNullException("Node cannot be null");
+        
         if (node == _root)
         {
             _root = null;
@@ -61,13 +60,11 @@ public class Tree<T>
     public void Print_Structure(Node<T> node, int level)
     {
         Console.WriteLine(new string('-', level) + node.Value);
+
         foreach (Node<T> child in node.Children)
         {
             Print_Structure(child, level + 1);
         }
-    }
-    {
-
     }
     
     public void FindParent()
