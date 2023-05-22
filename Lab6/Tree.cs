@@ -1,26 +1,27 @@
 ﻿
 using System;
+using System.Text;
 
 public class Tree<T>
 {
-    private Node<T> _root;
+    public Node<T> _root { get; set; }
 
     public Tree()
     {
     }
 
-    public Node<T> AddRoot<T>(T value)
+    public Node<T> AddRoot(T value)
     {
         if (_root != null)
         {
-            return _root
+            return _root;
         }
 
         _root = new Node<T>(value);
         return _root;
     }
 
-    public Node AddChild(Node<T> Parent, T value)
+    public Node<T> AddChild(Node<T> Parent, T value)
     {
         if (Parent == null) throw new ArgumentNullException("Parent Node cannot be null");
 
@@ -59,14 +60,20 @@ public class Tree<T>
 
     public void Print_Structure(Node<T> node, int level)
     {
-        Console.WriteLine(new string('-', level) + node.Value);
-
-        foreach (Node<T> child in node.Children)
+        if (level == 0)
+            Console.WriteLine($"|_" + node._value);
+        else
         {
-            Print_Structure(child, level + 1);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < level; i++)
+            {
+                sb.Append("   ");
+            }
+            sb.Append($"|_" + node._value);
+            Console.WriteLine(sb.ToString());
         }
     }
-    
+
     public void FindParent()
     {
 
