@@ -1,7 +1,4 @@
-using System;
-using System.Text;
 using Lab6;
-using Newtonsoft.Json.Linq;
 
 namespace Lab6_Test
 {
