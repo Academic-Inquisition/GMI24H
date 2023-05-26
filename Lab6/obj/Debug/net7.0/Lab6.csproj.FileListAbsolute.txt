@@ -13,3 +13,18 @@ C:\Users\timst\OneDrive\Dokument\GitHub\GMI24H\Lab6\obj\Debug\net7.0\refint\Lab6
 C:\Users\timst\OneDrive\Dokument\GitHub\GMI24H\Lab6\obj\Debug\net7.0\Lab6.pdb
 C:\Users\timst\OneDrive\Dokument\GitHub\GMI24H\Lab6\obj\Debug\net7.0\Lab6.genruntimeconfig.cache
 C:\Users\timst\OneDrive\Dokument\GitHub\GMI24H\Lab6\obj\Debug\net7.0\ref\Lab6.dll
+E:\GMI24H (Algoritmer)\Labbar\Kod\GMI24H\Lab6\bin\Debug\net7.0\Lab6.exe
+E:\GMI24H (Algoritmer)\Labbar\Kod\GMI24H\Lab6\bin\Debug\net7.0\Lab6.deps.json
+E:\GMI24H (Algoritmer)\Labbar\Kod\GMI24H\Lab6\bin\Debug\net7.0\Lab6.runtimeconfig.json
+E:\GMI24H (Algoritmer)\Labbar\Kod\GMI24H\Lab6\bin\Debug\net7.0\Lab6.dll
+E:\GMI24H (Algoritmer)\Labbar\Kod\GMI24H\Lab6\bin\Debug\net7.0\Lab6.pdb
+E:\GMI24H (Algoritmer)\Labbar\Kod\GMI24H\Lab6\obj\Debug\net7.0\Lab6.csproj.AssemblyReference.cache
+E:\GMI24H (Algoritmer)\Labbar\Kod\GMI24H\Lab6\obj\Debug\net7.0\Lab6.GeneratedMSBuildEditorConfig.editorconfig
+E:\GMI24H (Algoritmer)\Labbar\Kod\GMI24H\Lab6\obj\Debug\net7.0\Lab6.AssemblyInfoInputs.cache
+E:\GMI24H (Algoritmer)\Labbar\Kod\GMI24H\Lab6\obj\Debug\net7.0\Lab6.AssemblyInfo.cs
+E:\GMI24H (Algoritmer)\Labbar\Kod\GMI24H\Lab6\obj\Debug\net7.0\Lab6.csproj.CoreCompileInputs.cache
+E:\GMI24H (Algoritmer)\Labbar\Kod\GMI24H\Lab6\obj\Debug\net7.0\Lab6.dll
+E:\GMI24H (Algoritmer)\Labbar\Kod\GMI24H\Lab6\obj\Debug\net7.0\refint\Lab6.dll
+E:\GMI24H (Algoritmer)\Labbar\Kod\GMI24H\Lab6\obj\Debug\net7.0\Lab6.pdb
+E:\GMI24H (Algoritmer)\Labbar\Kod\GMI24H\Lab6\obj\Debug\net7.0\Lab6.genruntimeconfig.cache
+E:\GMI24H (Algoritmer)\Labbar\Kod\GMI24H\Lab6\obj\Debug\net7.0\ref\Lab6.dll

@@ -1,15 +1,23 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
-public class Node<T>
+namespace Lab6
 {
-    public T? _value { get; set; }
-    public Node<T>? Parent { get; set; }
-    public List<Node<T>?> Children { get; set; }
-
-    public Node(T value)
+    [ExcludeFromCodeCoverage]
+    public class Node<T>
     {
-        _value = value;
-        Children = new List<Node<T>>();
+        public T? _value { get; set; }
+        public Node<T>? Parent { get; set; }
+        public List<Node<T>?> Children { get; set; }
+
+        public Node(T value)
+        {
+            _value = value;
+            Children = new List<Node<T>>();
+        }
+
     }
-    
 }
+
+
+

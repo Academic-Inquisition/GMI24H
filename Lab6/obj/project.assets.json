@@ -8,24 +8,19 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\timst\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\timst\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\timst\\OneDrive\\Dokument\\GitHub\\GMI24H\\Lab6\\Lab6.csproj",
+      "projectUniqueName": "E:\\GMI24H (Algoritmer)\\Labbar\\Kod\\GMI24H\\Lab6\\Lab6.csproj",
       "projectName": "Lab6",
-      "projectPath": "C:\\Users\\timst\\OneDrive\\Dokument\\GitHub\\GMI24H\\Lab6\\Lab6.csproj",
+      "projectPath": "E:\\GMI24H (Algoritmer)\\Labbar\\Kod\\GMI24H\\Lab6\\Lab6.csproj",
       "packagesPath": "C:\\Users\\timst\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\timst\\OneDrive\\Dokument\\GitHub\\GMI24H\\Lab6\\obj\\",
+      "outputPath": "E:\\GMI24H (Algoritmer)\\Labbar\\Kod\\GMI24H\\Lab6\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
         "C:\\Users\\timst\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
