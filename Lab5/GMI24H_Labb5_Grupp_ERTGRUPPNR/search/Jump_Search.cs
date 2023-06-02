@@ -1,5 +1,4 @@
 ﻿using System;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 public class Jump_Search
 {
@@ -40,20 +39,18 @@ public class Jump_Search
         return (int)x;
     }
 
-    // Kom ihåg att referera till källan: 
-    // https://www.tutorialspoint.com/Babylonian-method-to-find-the-square-root
-
     private double Sqrt(float x)
     {
-        float y = 1; //initial guess as 1
+        float y = 1; 
         float number = x;
-        float precision = 0.000001f;           //the result is correct upto 0.000001
+        float precision = 0.000001f;           
 
         while (Abs(x - y) / Abs(x) > precision)
         {
             x = (x + y) / 2;
             y = number / x;
         }
+
         return x;
     }
 
